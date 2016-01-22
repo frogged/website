@@ -1,0 +1,39 @@
+~NOTOC~
+Gentoo users can install VerliHub from Overlays that contains additional ebuilds for Gentoo. Overlay is maintained by VerliHub developers so if you find a bug please report it from [Git hub issues page](https://github.com/VerliHub/gentoo-overlay/issues).
+
+First you need to install layman to manage overlays:
+
+    echo "app-portage/layman git" >> /etc/portage/package.use
+    echo "app-portage/layman" >> /etc/portage/package.accept_keywords
+    emerge layman
+
+Now retrieve the overlay list:
+
+    layman -L
+
+Now you need to modify your **/etc/make.conf** file adding this line:
+
+    source /var/lib/layman/make.conf
+
+Then add verlihub overlay
+
+    layman -a verlihub
+
+Using the ebuilds
+=================
+To install verlihub just type:
+
+    emerge -av net-p2p/verlihub
+
+To download a specific version:
+
+    emerge -av =net-p2p/verlihub-0.9.9a
+
+To exclude plugin compilation (in this case iplog and lua) use:
+
+    USE"-iplog -lua" emerge -av net-p2p/verlihub
+
+You can also try VerliHub on GIT using live package (9999):
+
+    echo "=net-p2p/verlihub-9999"  >> /etc/portage/package.unmask
+    echo "=net-p2p/verlihub-9999 **"  >> /etc/portage/package.accept_keywords

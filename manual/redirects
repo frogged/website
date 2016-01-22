@@ -1,0 +1,67 @@
+VerliHub allows to redirect incoming users or users already in the hub. Starting from VerlihHub 0.9.8e redirect system **has been changed**  so make sure to read correct section.
+
+Custom redirects
+==================
+
+VerliHub since version 0.9.8e let you create custom redirects. The big difference from old redirect system is that users can be redirected to different hub address depending on events happening in the hub. For example in some cases you would like to redirect banned users to an hub and redirect users, who cannot join the hub because it is full, to another one.
+
+These are the commands available to use with custom redirects:
+
+!lstredirect
+: List of available redirects
+
+!addredirect &lt;host:port&gt; [ -f &lt;flags&gt; ] [ -e &lt;enable/disable&gt; ]
+: Add a new redirect. See below for more information regarding these parameters
+
+!modredirect &lt;host:port&gt;  [ -f &lt;flags&gt; ] [ -e &lt;enable/disable&gt; ]
+: Change an existing redirect. See below for more information regarding these parameters
+
+!delredirect &lt;host:port&gt;
+: Remove a redirect
+
+!hredirect
+: Show an help message and a lit of available redirect flags
+
+Here there is a explanation of command parameters:
+
+- **&lt;host:port&gt;**: the address of the hub with port to redirect the users (for ex. myhub.no-ip.org:4511)
+- **-e &lt;enable/disable&gt;**: use 1 to enable the redirect or 0 to disable it; if this parameter is not given, default value is 1
+- **-f &lt;flags&gt;**: this is a flag bitset of the hub events. These will govern how VerliHub chooses the redirect
+
+This is a table with the available flag values:
+
+| Bit  | Event description |
+|-----------|------------|------------|
+|0|For any other reason|
+|1|Ban and kick|
+|2|Hub full|
+|4|User does not enforce share rules|
+|8|Wrong or unknown tag|
+|16|Wrong password|
+
+To specify more events for a single redirect, you can use the bit of the event. For example suppose you want to redirect all banned users (bit 1) and those who do not follow hub rules (bit 4) to address foobar.myaddress.org. The value for the flag option will be 5 (1+4):
+
+    !addredirect foobar.myadress.org -f 5
+
+If there is no redirect set for an event, VerliHub chooses the redirects with flag 0. For example suppose there are just two redirect, one to myhub.no-ip.org:4511 with flag 2 and the other to redirect.no-ip.org with flag 0. If you kick an user, there is no redirect with event flag 1 (ban and kick), so VerliHub redirects him to redirect.no-ip.org
+
+> If there are more than one redirect with same flag, VerliHub chooses randomly
+
+Old style redirects (VerliHub <= 0.9.8d RC2)
+==================
+
+You can set **up to 10 redirects** where VerliHub redirects every disconnected user. The choice is made randomly among all of them although the first slot is likely to be chosen more often then the others.
+
+In order to enable extra redirect slots you must set the _redir\_host\_max_ variable accordingly. For example if you have set redirect from slot 0 to 3, you should set redir\_host\_max to 3 and **not** to 4 (this would enable the empty slot redir_host4 leaving open the possibility of dead user connections).
+
+It is **important** that you set a redirect host for your hub although this is not imperative. Please be warned if you have a busy hub and you wish to disable redirects by setting the first redirect slot to your own hub address, keep in mind that the users you are trying to redirect have **already been rejected** by your hub. Leaving these users in a connection loop will not help your hub stability.
+
+You can disable redirects using this command:
+
+    !set redir_host_max -1
+
+To set up redirect use:
+
+    !set redir_host# <address:port>
+
+where # indicated the redirect number (from 0 to 9) and <addrees> the address of the hub where you want to redirect users

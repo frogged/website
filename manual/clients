@@ -1,0 +1,93 @@
+Verlihub has an advanced feature to manage different clients in your hub. It is possible to add rules in order allow or ban clients
+by tag name or by version. These are the commands available to manage clients:
+
+!lsttag
+: List available clients
+
+!addtag <name&gt; -t <tag_id&gt; [ -v <min_version&gt; ] [ -V <max_version&gt; ] [ -b <yes/no&gt; ] [ -e <1/0&gt; ]
+: Add a rule for the client. See below the table for more information regarding the parameters
+
+!modtag <name&gt; -t <tag_id&gt; [ -v <min_version&gt; ] [ -V <max_version&gt; ] [ -b <yes/no&gt; ] [ -e <1/0&gt; ]
+: Change a rule for the client. See below the table for more information regarding the parameters
+
+!deltag <name&gt;
+: Remove a client
+
+!htag
+: Show help
+
+Here there is a explanation of command parameters:
+
+-  **&lt;name&gt;**: the unique name to identify a client
+- **-t &lt;tag_id&gt;**: identification of the client. This is contained in the client TAG that is sent to the hub when user logs in
+- **-b &lt;yes/no&gt;**: use 'yes' or '1' if the client is not allowed in the hub; use 'no' or '0' otherwise
+- **-v &lt;min_version&gt;**: minimum allowed version of the client
+- **-V &lt;max_version&gt;**: maximum allowed version of the client
+- **-e &lt;1/0&gt;**: enable or disable the rule. If the rule is disabled VerliHub ignores it
+
+> The version of the client must contains only integer or decimal numbers, like 0.1, 3, etc., but not 0.0.1
+
+For example suppose you want to allow version of DC++ clients below 0.5; DC++ tag looks like this:
+
+    <++ V:0.760,M:A,H:0/0/5,S:3>
+
+The tag identification is always between symbol < and the first space; in this case is '++'. To add the client you type:
+
+    !addtag "Old DC++" -t ++ -v 0.5 -b 1
+
+Other examples of tag identification:
+
+| Tag  | Tag ID |
+|-----------|------------|------------|
+|&lt;ApexDC++ V:1.3.1,M:P,H:2/23/15,S:3&gt;|ApexDC++|
+|&lt;StrgDC++ V:1.00 RC10,M:A,H:23/0/2,S:7&gt;|StrgDC++|
+|&lt;DCGUI V:0.3.13,M:A,H:0/0/5,S:3&gt;|DCGUI|
+|&lt;oDC V:5.31,M:A,H:14/0/0,S:1&gt;|oDC|
+
+Global limits for clients
+==================
+You can also set global limits for clients entering the hub:
+
+tag_allow_passive
+: Allow clients from passive user
+
+tag_allow_none
+: Allow clients to not report a tag. 1 = yes, 0 = no. Default to 1
+
+tag_allow_sock5
+: This can prevent a user connecting to your hub using socks connection. 1 = allow, 0 = deny
+
+tag_max_hs_ratio
+: Enter the minimum hub/slot ratio. Users that are below this are refused connections to the hub. For example setting to 1 means user needs to have 1 slot open per hub
+
+tag_max_hubs
+: Set this to restrict how many hubs user can be open at the same time
+
+tag_max_version
+: Maximum version number for unknown clients (not registered in the database with !addtag command)
+
+tag_min_class_ignore
+: The lowest class for a user not to be checked for tags
+
+tag_min_hs_ratio
+: The minimum value for slots per hub ratio
+
+tag_min_hubs
+: Minimum number of hubs for all users
+
+tag_min_hubs_op
+: Minimum number of hubs for Operator
+
+tag_min_hubs_reg
+: Minimum number of hubs for registered users
+
+tag_min_hubs_usr
+: Minimum number of hubs for regular users users
+
+tag_min_version
+: Minimum version number for unknown clients
+
+tag_sum_hubs
+: Specify how VerliHub should count opened hubs of the user. Client tag is composed by three parts: X/Y/Z. X are hubs where user is not registered, Y hubs where user is registered and Z hubs where user is OP. Set value to 1 to check only X (opened hubs=X), 2 to check also Y (opened hubs=X+Y) or 3 to check also Z (opened hubs=X+Y+Z)
+
+> You can hide/show tag to other users changing <code>show_tags</code> variable. 0 = hide from all, 1 = show tags to OPs only, 2 = show tags to all. Default is 2.

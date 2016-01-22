@@ -1,0 +1,326 @@
+Send messages
+==================
+VerliHub provides three methods for sending messages to multiple users: a simple broadcast to everyone, a message to OPs only, and a message to all registered users.
+
+Message to everyone
+-------------------
+If you need to send a message to all connected users in your hub, use:
+
+    !broadcast <message>
+
+or
+
+    !bc <message>
+
+For example, to send a message to everyone that the hub is going down for maintenance:
+
+    !broadcast This hub is going down for maintenance and will be back in 2 minutes
+
+Message to a group of users
+------------------
+Here is a list of commands that you can use to broadcast messages to all users with chosen class:
+
+!guests &lt;msg&gt;
+: Broadcast to guests (class 0)
+
+!regs &lt;msg&gt;
+: Broadcast to registered users (class 1)
+
+!vips &lt;msg&gt;
+: Broadcast to VIPs (class 2)
+
+!ops &lt;msg&gt;
+: Broadcast to operators (class 3)
+
+!cheefs &lt;msg&gt;
+: Broadcast to cheefs (class 4)
+
+!admins &lt;msg&gt;
+: Broadcast to administrators (class 5)
+
+!masters &lt;msg&gt;
+: Broadcast to masters (class 10)
+
+You can even sends messages based on their country code (CC):
+
+    !ccbroadcast <:CC:> <msg>
+
+For example:
+
+    !ccbroadcast :PL:SE:US: <msg>
+
+will send the message to all users of Sweden, Poland, and the US.
+
+Welcome messages
+==================
+Verlihub allows you to greet members as they join with custom messages.
+
+You can customize messages when user join the hub based on users class. These are describe below:
+
+!set msg_welcome_guest &lt;message&gt;
+: Welcome message for guest users
+
+!set msg_welcome_reg &lt;message&gt;
+: Welcome message for registered users
+
+!set msg_welcome_vip &lt;message&gt;
+: Welcome message for VIP users
+
+!set msg_welcome_op &lt;message&gt;
+: Welcome message for OPs
+
+!set msg_welcome_cheef &lt;message&gt;
+: Welcome message for Cheefs
+
+!set msg_welcome_admin &lt;message&gt;
+: Welcome message for Admins
+
+!set msg_welcome_master &lt;message&gt;
+: Welcome message for Master users
+
+You can also add in the text message some placeholders that will be automatically replaced:
+
+%[nick]
+: The nickname of the user that enter in the hub
+
+%[CC]
+: The country code of the user
+
+It is also possible to set a custom message for every single registered users. This will only be shown to that user and not to everyone. The example below shows how to do this:
+
+    !regset <username> msg_welcome <your custom message>
+
+Limits on messages
+==================
+You can control the length of the messages sent in PM or main chat or limit the use of main chat of the hub changing the value of the following variables:
+
+chat_default_on
+: Enable the chat window by default. 1=yes, 0=no. If no, users need to use !chaton to get messages
+
+mainchat_class
+: The minimum class that can use the main chat
+
+max_chat_lines
+: Maximum number of lines that can be sent to mainchat (default is 5)
+
+max_chat_msg
+: Maximum length of characters allowed in a message sent to mainchat (default is 256)
+
+int_chat_ms
+: This is the time period between each message a user can send to main chat. A value of 1000 would make a user wait 1 second at least before he can send another message to mainchat. Can be used for flood control
+
+Other hub messages
+==================
+You can also customize other hub messages or turn them on/off:
+
+msg_replace_ban
+: Replace "_ban_*" string in the ban reason with this message. For example if you set this variable to "Bye", if you execute:
+
+        !kick <nick> You have been a bad user. _ban_2d
+
+ the user will see the following reason:
+
+        <OPUser> is kicking user <nick> because: You have been a bad user. Replace
+
+ By default this string is empty and the "_ban_*" string is simply removed from reason message.
+
+wrongpassword_msg
+: Message to display if the user types a wrong password when he logs in
+
+ban_extra_message
+: This string will be appended to ban message and it will be displayed to banned user
+
+wrongpassword_report
+: Report if a registered user uses a wrong password to login
+
+wrongauthip_report
+: Report if a registered user uses a IP different from value stored in auth_ip field (of reglist table). Use 1 or 0.
+
+botinfo_report
+: Send a report message in OPChat if a BOT enter in the hub. Set 1 to enable reporting, 0 to disable
+
+extended_welcome_message
+: Change the display of welcome message ("_This hub is running version.._"). Set to 0 to display on one line:
+
+        <VerliHub> Running Verlihub 1.0.0 build Fri Mar 30 2012 ][ Runtime: 6 seconds 114 ms ][ User count: 1
+
+ Set to 1 to display it on more lines providing more information:
+
+        <VerliHub> Running Verlihub 1.0.0 build Fri Mar 30 2012
+        <VerliHub> Runtime: 1 min 22 seconds
+        <VerliHub> User count: 1
+        <VerliHub> System status: Normale mode
+
+hub_version_special
+: You can specify an extra version string here that will be appended to the initial message of the hub
+
+host_header
+: Change behavior of hubsoft welcome message ("_This hub is running version.._") display. Set to 0 to hide the header, to 1 to send header on login and to 2 to send message on user's connection
+
+File Triggers
+==================
+
+VerliHub has an advanced feature called _file trigger_. A command in triggers start  with sign prefix that is **!** for OPs (means
+that only OPs can use the trigger) and **+** for users. These are the commands available to use with the file triggers:
+
+!lsttrigger
+: List available triggers
+
+!addtrigger &lt;trigger&gt; [ -d &lt;definition&gt; ] [ -h &lt;description help&gt; ] [ -f &lt;flags&gt; ] [ -n &lt;send as nick&gt; ] [ -c &lt;min_class&gt; ] [ -C &lt;max_class&gt; ]
+: Add a new trigger. See below the table for more information regarding the parameters
+
+!modtrigger &lt;trigger&gt; [ -d &lt;definition&gt; ] [ -h &lt;description help&gt; ] [ -f &lt;flags&gt; ] [ -n &lt;send as nick&gt; ] [ -c &lt;min_class&gt; ] [ -C &lt;max_class&gt; ]
+:  Change a trigger. See below the table for more information regarding the parameters
+
+!deltrigger &lt;trigger&gt;
+: Remove a trigger
+
+!htrigger
+: Show an help and available trigger flags
+
+Here there is a explanation of command parameters:
+
+- **&lt;trigger&gt;**: the name you want the trigger to be called
+- **-d &lt;definition&gt;**: the definition of the trigger. This can be point to a file on file system or it can be the trigger content (if
+the correct flags are specified). In this case you need to enclose the content in quotes. For i.e. -d "This is the trigger contents."
+- **-h &lt;description help&gt;**: this is not used by VerliHub. It is a simple note for OPs that describes what trigger does
+- **-f &lt;flags&gt;**: this is a flag bitset. These will govern how VerliHub will use the trigger and/or how it displays it to the user.
+See below for more information about available flags
+- **-n &lt;send as nick&gt;**: when VerliHub sends message to the main chat window, the trigger will appear to send from this nickname
+- **-c &lt;min_class&gt;**: the minimum user class allowed to use this trigger
+- **-C &lt;max_class&gt;**: the maximum user class allowed to use this trigger
+
+Flags
+------------------
+These are available flags:
+
+| Number  | Description |
+|-----------|------------|------------|
+|0|Send to main chat (visible to user only)|
+|1|Execute command in the trigger|
+|2|Message is sent to PM|
+|4|Automatically execute trigger when user logs in|
+|8|Execute trigger with +help/!help command|
+|16|The definition of the trigger is the trigger content. Enclose it in quotes|
+|32|Replace variables in the trigger. For more information see the list below|
+|64|Message is sent to everyone in the main chat window|
+
+If you want to use more than one flag just sum them. For example:
+
+- -f 0: send trigger only in main chat
+- -f 6: send message to user on login, and in the PM window (2+4)
+- -f 10: trigger is executed on +help/!help and it sends in the PM window (8+2)
+- -f 14: send message on login **and** on +help/!help to a PM (4+8+2)
+- -f 50: use definition as trigger contents and send to PM window with variables (16+32+2)
+- -f 64: send to everyone in main chat window
+
+Check the example at the end of this section.
+
+Variables
+------------------
+You can use some variables in the trigger file or content that will be automatically replaced with special value. You can use this
+feature only if you set flag 32:
+
+%[NICK]
+: User's nickname
+
+%[SHARE]
+: User's share size in kilobytes
+
+%[SHAREPEAK]
+: User's share size maximum in kilobytes
+
+%[CC]
+: User's country code
+
+%[CN]
+: User's country name
+
+%[IP]
+: User's IP address
+
+%[CFG]
+: This is the configuration path of the hub (where it is located dbconfig file
+
+%[HOST]
+: User's hostmask (dns_lookup must be set to 1 for this to work)
+
+%[HUBNAME]
+: The hub name
+
+%[HUBDESC]
+: The description of the hub
+
+%[CLASS]
+: The class of the user who has run the command
+
+%[HUBTOPIC]
+: Hub topic
+
+%[USERS]
+: The number of users in the userlist
+
+%[USERS_ACTIVE]
+: The number of active users in the userlist
+
+%[USERS_PASSIVE]
+: The number of passive users in the userlist
+
+%[USERSPEAK]
+: Show max users reached by the hub
+
+%[TOTAL_SHARE]
+: Total amount shared in hub
+
+%[UPTIME]
+: Hub uptime
+
+%[VERSION]
+: Hub version
+
+%[VERSION_DATE]
+: Hub's release date
+
+%[PARALL]
+: All parameters written after command
+
+%[PAR1]
+: Only first parameter written after command
+
+%[END1]
+: The command itself and all parameters written after it
+
+%[ss]
+: Current seconds
+
+%[mm]
+: Current minutes
+
+%[HH]
+: Current hours
+
+%[DD]
+: Current day
+
+%[MM]
+: Current month
+
+%[YY]
+: Current year
+
+Example
+------------------
+To add a trigger called _+hublisting_ from a file and sends it in PM window use:
+
+    !addtrigger +hublisting -d "/path/to/file" -f 2
+
+To trigger pinger log in use:
+
+	!addtrigger +pinger -d "*** Pinger from IP: %[IP] with nick: %[NICK] detected. " -f 116 -c -1 -C -1
+
+
+> When you use the definition as the actual trigger contents, you **cannot** use quotations in the text! Otherwise only a part of the
+message will be saved. You need to edit the database directly in this case.
+
+> +motd, +help, +faq, +rules are always trigger so you can edit their behaviour setting different flags. For example, if you want to
+send the FAQ to a PM window use this command: !modtrigger +faq -f 2

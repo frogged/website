@@ -1,0 +1,302 @@
+~NOTOC~
+Here you can find the full list of all variables in alphabetical order with a little explanation
+
+A
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|allways_ask_password|Always ask users for a password, whether they are registered or not|
+|autoreg_class|Specify which class should be used to register a new user with auto registration feature. If you use a class bigger than 3 VerliHub will block auto registration|
+
+B
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|ban_extra_message|This string will be appended to ban message and it will be displayed to banned user|
+|bc_reply|When you set to 'disable' then the !bc commands don't send you away replies as PM|
+|botinfo_report|Send a report message in OPChat if a BOT enter in the hub. Set 1 to enable reporting, 0 to disable|
+
+C
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|cc_zone1|Enter the countries for the first country code zone. The format is :XX:YY:ZZ:. It has to start and end with a colon, and all country **capitalized** codes are separated by colons. There can be any number of codes (example codes: ':CZ:UK:US:SE:'|
+|cc_zone2|Enter the countries for the second country code zone. For CC format see cc_zone1|
+|cc_zone3|Enter the countries for the third country code zone. For CC format see cc_zone1|
+|chat_default_on|Enable the chat window by default. 1=yes, 0=no. If no, users need to use !chaton to get messages|
+|classdif_download|This is the maximum class you can downloaded from that you get from the difference between your class and the the class of the user you want to register. Default is set to 10 so all users can be contacted by PM. See _classdif\_reg_ for more information. Very useful to block downloads|
+|classdif_pm|This is the maximum class you can contact by PM that you get from the difference between your class and the the class of the user you want to register. Default is set to 10 so all users can be contacted by PM. See _classdif\_reg_ for more information|
+|classdif_reg|This is the maximum class you can register that you get from the difference between your class and the the class of the user you want to register. Default is set to 2 so this means that if you class 3 you can only register user with class 1. If your are Admin (class 5) you can register classes 1, 2, 3 and so on|
+|classdif_kick|This is the maximum class you can kick that you get from the difference between your class and the the class of the user you want to kick. Default is set to 0 so this means that if you class 3 you can kick user with class equal or lower than your|
+|cmd_start_user|The prefix for user commands. Default to '+'|
+|cmd_start_op|Prefix for OP commands. Default to '!'|
+|core_dump|Crash the hub and dump core|
+
+D
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|default_password_encryption|The ecryption method which will be used (if available) to encrypt passwords that will be set. 1 = ENCRYPT (default), 0 = not encrypted (plain text), 2 = MD5. If given method is not available, another encryption method is used or at worst the plain text password is stored|
+|delayed_chat||
+|delayed_login||
+|delayed_myinfo||
+|delayed_ping||
+|delayed_search|This will impose an initial delay specified by int_search on a connecting user. Useful for search bots that search spam hubs. Default to 1|
+|desc_insert_mode|Insert connection mode in user description field. One of the following value is used: 'A' (active), 'P' (passive), or '5' (socks). Allowed value: 1 = enable, 0 = disabled|
+|dest_drop_chat|Send the +drop output in main chat. 1 = main chat, 0 = OPChat|
+|dest_regme_chat|Send the +regme request message in main chat. 1 = main chat, 0 = OPChat|
+|dest_report_chat|Send the +report request message in main chat. 1 = main chat, 0 = OPChat|
+|disable_me_cmd|Set this to 1 to prevent people using the +me command|
+|disable_regme_cmd|Set this to 1 to prevent people using the +regme command|
+|disable_report_cmd|Set this to 1 to prevent people using the +report command|
+|disable_usr_cmds|Set this to 1 to temporarily disable all + commands for users below class 1|
+|disable_zlib|Disabled zlib support. Set to 1 to disabled, 0 to leave support enabled|
+|dns_lookup|Reverse DNS lookup when user joins. Needed to see hostmask of user. If you have a slow DNS server this can slow down the hub|
+|drop_invalid_key|Drop users that have a invalid key|
+
+E
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|extended_welcome_message|Change the display of welcome message ("_This hub is running version.._"). Set to 1 to display it on more lines providing more information|
+|extra_listen_ports|Extra ports the hub listens on|
+
+H
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|hide_all_kicks|Hides all kick messages from users|
+|host_header|Show hubsoft welcome message ("_This hub is running version.._") when user enter in the hub. (0 will hide the header, 1  will send header on login and 2 will send header on connection)|
+|hub_category|Specify what type of hub you have i.e. movie. This variable is sent to the hublist|
+|hub_desc|A description of your hub|
+|hub_host|What people will use to connect to your hub. (For example: myhub.no-ip.com)|
+|hub_icon_url|The URL for the hub icon (used by hublist services)|
+|hub_name|The name of your hub|
+|hub_owner|The owner that runs the hub|
+|hub_topic|The topic of the hub|
+|hub_security|This is the name of the Hub Security bot|
+|hub_security_desc|This is the description of the Hub Security bot|
+|hub_version|This is a hard value determined by the source code. If you change it then upon next restart the hub will change it back again|
+|hub_version_special|You can specify an extra version string here that will be appended to the initial message of the hub|
+|hublist_host|The DNS or IP address of the hublist registering server|
+|hublist_port|The port of the hublist registering server|
+|hublist_send_minshare|When set to 1 minimum share is added automatically description sent to the hublist|
+
+I
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|int_chat_ms|This is the time period between each message a user can send to main chat. A value of 1000 would make a user wait 1 second at least before he can send another message to mainchat. Can be used for flood control|
+|int_flood_pm_period|A flood control only applied to private messages. This is a time setting in seconds and will measure how many private messages you are trying to send to a user over the specified time period|
+|int_flood_pm_period||
+|int_login|Number of seconds user has to wait after disconnection before being allowed to reconnect|
+|int_myinfo||
+|int_nicklist|User can only request the nicklist update every given number of seconds; useful for lag and bandwidth control|
+|int_search|Minimum number of seconds that user has to wait before being allowed to search again|
+|int_search_op|int_search for OPs|
+|int_search_pas|int_search for passive users|
+|int_search_reg|int_search for registered users|
+|int_search_reg_pass|int_search for registered passive users|
+|int_search_vip|int_search for VIPs|
+|ip_zone4_max|If you want to restrict users by IP address, enter the maximum IP address for the first IP zone here|
+|ip_zone4_min|If you want to restrict users by IP address, enter the minimum IP address for the first IP zone here |
+|ip_zone5_max|If you want to restrict users by IP address, enter the maximum IP address for the second IP zone here|
+|ip_zone5_min|If you want to restrict users by IP address, enter the minimum IP address for the second IP zone here|
+|ip_zone6_max|If you want to restrict users by IP address, enter the maximum IP address for the third IP zone here|
+|ip_zone6_min|If you want to restrict users by IP address, enter the minimum IP address for the third IP zone here|
+
+L
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|listen_port|The port the hub listens on. Other hubs use port 411, but you need to run verlihub as root to do that. Default: 4111.|
+|listen_ip|If you have more than one network card in your PC, enter the IP address to listen on. If you don't have more than one network card, no change is necessary. Default to empty|
+|log_level|This will create a log file, useful for debug. It can be a number from 0 (disable) to 5 (logs everything) depending of level of debugging you want. Use with caution since this feature can significantly impact on resources|
+
+M
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|mainchat_class|The minimum class that can use the main chat|
+|max_chat_lines|Maximum number of lines that can be sent to mainchat (default is 5)|
+|max_chat_msg|Maximum length of characters allowed in a message sent to mainchat (default is 256)|
+|max_class_int_login|Maximum class that use int_login|
+|max_extra_admins|If the hub is full, allow specified extra number of admins to join|
+|max_extra_cheefs|If the hub is full, allow specified extra number of Cheefs to join|
+|max_extra_ops|If the hub is full, allow specified extra number of OPs to join|
+|max_extra_regs|If the hub is full, allow specified extra number of registered users to join|
+|max_extra_vips|If the hub is full, allow specified extra number of VIPs to join|
+|max_message_size|Maximum number of bytes allowed in a single protocol message (for advanced use)|
+|max_nick|Maximum characters allowed for nickname|
+|max_passive_sr|Maximum number of search responses a passive user is allowed to recieve. This is useful for lag and bandwidth control since passive users totally rely on the hub to return search results|
+|max_share|Maximum amount that people must share in your hub in MiB. People that share more will not be allowed to join|
+|max_share_reg||If you want your registered users to have a different maximum share level, use this|
+|max_share_ops|If you want your OPs to have a different maximum share level, use this|
+|max_share_vip|If you want your VIPs to have a different maximum share level, use this|
+|max_upload_kbps|Maximum upload speed that hub is allowed to use. This is **very** useful for protecting the hub against lag in larger hubs. Setting the right limit will prevent the hub from being to accept more then it can handle at any given time|
+|max_users|The maximum number of users in the hub|
+|max_users0|The maximum number of users that have a Country Code different from cc_zone* or that doesn't have IP range belongs to ip_zone*|
+|max_users1|The maximum number of users in the hub for the country zone 1 (cc_zone1)|
+|max_users2|The maximum number of users in the hub for the country zone 2 (cc_zone2)|
+|max_users3|The maximum number of users in the hub for the country zone 3 (cc_zone3)|
+|max_users4|The maximum number of users in the hub for ip_zone4_*|
+|max_users5|The maximum number of users in the hub for ip_zone5_*|
+|max_users6|The maximum number of users in the hub for ip_zone6_*|
+|max_users_from_ip|The maximum number of users (below class 2) that can enters in the hub with the same IP|
+|max_users_passive|The maximum number of passive users in the hub|
+|min_class_bc|Minimum class that user should has to send broadcasting message. A setting of 5 means only admins can send messages to users|
+|min_class_bc_guests|Minimum class that user should has to send broadcasting message to registered users. This overrides min_class_bc|
+|min_class_bc_regs|Minimum class that user should has to send broadcasting message to registered users. This overrides min_class_bc|
+|min_class_bc_vips|Minimum class that user should has to send broadcasting message to registered users. This overrides min_class_bc|
+|min_class_redir|Minimum class that user should has to manually redirect other users|
+|min_class_register|Minimum class that user should has to register other users. If you set this to 3 then it will override any other settings and only OPs or higher will be able to register a new user|
+|min_class_use_hub|Minimum class that is able to download; all users that have a class below the given value can't use the hub to download. This will override the min_class_use_hub_passive variable if value is different from 0|
+|min_class_use_hub_passive|The same of min_class_use_hub but for passive users only|
+|min_nick|Minimum characters allowed for nickname. Default to 3|
+|min_search_chars|Minimum number of characters allowed in a search. (This can be a useful means of controlling wildcard searches such as 'mp3' which for a passive user would return thousands upon thousands of search results|
+|min_share|Minimum amount that people must share in your hub in MiB. People that share less will not be allowed to join. Default to 2 GiB (2048 MiB)|
+|min_share_factor_passive|Multiplication factor applied to mini_share to calculate minimum share for passive users (a setting of 2 means that passive have to share twice the min_share setting)|
+|min_share_ops|If you want your OPs to have a different minimum share level, use this|
+|min_share_reg|If you want your registered users to have a different minimum share level, use this|
+|min_share_use_hub|If this is higher then min_share then users that have less then this value will not be able to search and download, but will be allowed to join the hub|
+|min_share_use_hub_reg|min_share_use_hub for registered users, see **min_share_use_hub**|
+|min_share_use_hub_vip|min_share_use_hub for VIP, see **min_share_use_hub**|
+|min_share_vip|If you want your VIP users to have a different minimum share level, use this|
+|min_frequency||
+|msg_welcome_guest|If you want to welcome your members with class 0, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+|msg_welcome_reg|If you want to welcome your registered members, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+|msg_welcome_vip|If you want to welcome your VIP members, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+|msg_welcome_op|If you want to welcome your OPs, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+|msg_welcome_cheef|If you want to welcome your cheef OPs, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+|msg_welcome_admin|If you want to welcome your admin OPs, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+|msg_welcome_master|If you want to welcome your master user, fill in a welcome message here. Use %[nick] to use the person's nickname in the message|
+
+N
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|nick_chars| Allowed characters in the username|
+|nick_prefix|Force a connecting user to have one of prefixes before the nick, example: [A] [ABC] [AB] will tell all connecting users to set their nick as [A]nickname, [ABC]nickname or [AB]nickname|
+|nick_prefix_nocase|Allows case insensitive prefixes to be used|
+|nick_prefix_autoreg|Prefix that user should use and have to complete auto registration|
+|nick_prefix_cc|See nick_prefix but used when cc zones have been defined|
+|nicklist_on_login|Show nicklist when users log in|
+|nullchars_report|Avoid reports about users who send NULL characters|
+
+O
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|opchat_desc|This is the description of the OpChat bot|
+|opchat_name|This is the name of the OpChat bot|
+|optimize_userlist|Set this to 1 if you wish to load the userlist more slower to users when connecting. How slowly is determined by the _ul\_portion_ variable|
+
+P
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|password_min_len|Minimum number of characters for password|
+|plugin_mod_class|The minimum class that user should has to issue plugin commands|
+|pwd_tmpban|Ban time in minutes if registered user provides a wrong password during log in process|
+
+R
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|report_dns_lookup|This will report to opchat by default the results of a reverse dns lookup|
+
+S
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|search_number|Number of search a user can do in the _int\_search_ interval. Default to 1|
+|send_user_info|When people join the hub will send them information about themselves. Set to 0 to disable or 1 to enable. Default to 1|
+|send_user_ip|When people join the hub will send them their IP address. Set to 0 to disable or 1 to enable. Default to 1|
+|show_desc_len| The same as the show_email variable except that you can specify a number of characters that are allowed in description field. For example 10 would allow a user description length of 10 characters. -1 to disable and show entire description|
+|show_email|Set this to 0 if you wish to optimise your nicklist by removing all e-mail fields. Set to -1 to disable and show all email addresses that user specify in their client settings|
+|show_speed|Make same action of show_email, but refered to speed|
+|show_tags|Show tags to users. 0 = hide from all, 1 = show tags to OPs only, 2 = show tags to all. Default to 2|
+|step_delay||
+
+T
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|tag_allow_passive|Allow clients from passive user|
+|tag_allow_none|Allow clients to not report a tag. 1 = yes, 0 = no. Default to 1|
+|tag_allow_sock5|This can prevent a user connecting to your hub using socks connection. 1 = allow, 0 = deny|
+|tag_max_hs_ratio|Enter the minimum hub/slot ratio. Users that are below this are refused connections to the hub. For example setting to 1 means user needs to have 1 slot open per hub|
+|tag_max_hubs|Set this to restrict how many hubs user can be open at the same time|
+|tag_max_version|Maximum version number for unknown clients|
+|tag_min_class_ignore|The lowest class for a user not to be checked for tags|
+|tag_min_hs_ratio|The minimum value for slots per hub ratio|
+|tag_min_hubs|Minimum number of hubs for all users|
+|tag_min_hubs_op|Minimum number of hubs for Operator|
+|tag_min_hubs_reg|Minimum number of hubs for registered users|
+|tag_min_hubs_usr|Minimum number of hubs for regular users users|
+|tag_min_version|Minimum version number for unknown clients|
+|tag_sum_hubs|Specify how VerliHub should count opened hubs of the user. Client tag is composed by three parts: X/Y/Z. X are hubs where user is not registered, Y hubs where user is registered and Z hubs where user is OP. Set value to 1 to check only X (opened hubs=X), 2 to check also Y (opened hubs=X+Y) or 3 to check also Z (opened hubs=X+Y+Z)|
+|tban_kick|Length of time (in seconds) people must wait after being kicked to rejoin. In seconds. Default to 300 seconds|
+|tban_max|Maximum length of time (in seconds) an OP can ban someone for|
+|timeout_flush||
+|timeout_key|Timeout (in seconds) from the connection until the first response|
+|timeout_login|Timeout (in seconds) from the connection until the appearance in the userlist|
+|timeout_myinfo|Timeout (in seconds) from the nick until the myinfo (description, share, tags,etc..)|
+|timeout_nick|Timeout (in seconds) from the key response until the reception of nick|
+|timeout_setpass|Timeout (in seconds) from login until user sets his initial password|
+|timer_conn_period||
+|timer_hublist_period|Number of seconds between two hublists registrations|
+|timer_serv_period||
+|timer_reloadcfg_period|This is a time setting in seconds that tells Verlihub to reload its settings, reglist and banlist cache from the database. Default is 300 seconds (5 minutes) meaning every 5 minutes verlihub will reload the database|
+|topic_mod_class|The minimum class that user should has to set the hub topic|
+|trigger_mod_class|The minimum class that can issue trigger moderation commands|
+
+U
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|ul_portion||
+|use_penlist_cache|The same for use_reglist_cache but refers to banlist, kicklist and temporary rights|
+|use_reglist_cache|Set to default by 1. Verlihub will cache the reglist table into memory to improve performance. If this is turned on, cache must be reloaded with reload command if any external applications modifiy reglist table|
+
+W
+==================
+| Variable  | Explanation|
+|-----------|------------|------------|
+|wrongpassword_msg|Message to display if the user types a wrong password when he logs in|
+|wrongpassword_report|Report if a registered user uses a wrong password to login|
+|wrongauthip_report|Report if a registered user uses a IP different from value stored in auth_ip field (of reglist table). Use 1 or 0.|
+
+Plugins variables
+==================
+
+| Variable  | Explanation|
+|-----------|------------|------------|
+|pi_chatroom.min_class_add|Minimum class to add a new room|
+|pi_chatroom.min_class_del|Minimum clas to delete a room|
+|pi_chatroom.min_class_lst|Minimum class to get list of all rooms|
+|pi_chatroom.min_class_mod|Minimum class to edit a room|
+|pi_floodprot.max_conn_per_ip|Represents the maximum number of connection per IP. Set to 1 to allow one IP per user|
+|pi_floodprot.max_users_per_ip|Represents the maximum number of users per IP. Set to 1 to allow one IP per user|
+|pi_floodprot.bantime_on_flood|Number of seconds to ban the flooder|
+|pi_forbid.max_class_dest||
+|pi_forbid.max_repeat_char|Maximum number of repeated characters in the string|
+|pi_forbid.max_upcase_percent|Percentage of uppercase word in the message|
+|pi_isp.allow_all_connections|Allow all connections from ISP. Set to 1 to allow, 0 to disable|
+|pi_isp.case_sensitive_nick_pattern|Math nick pattern with case sensitive. Set 1 to enable, 0 to disable|
+|pi_isp.max_check_conn_class|Maximum class of user to check connection|
+|pi_isp.max_check_isp_class|Maximum class of user to check ISP|
+|pi_isp.max_check_nick_class|Maximum class of user to check nickname|
+|pi_isp.max_insert_desc_class|Maximum class of user that plugin should replace description|
+|pi_isp.unit_max_share_bytes|TO BE REMOVED|
+|pi_isp.unit_min_share_bytes|TO BE REMOVED|
+|pi_isp.msg_no_isp|Message to send if user ISP is not allowed|
+|pi_isp.msg_share_less|Message to send if user has a share less than set value for the ISP|
+|pi_isp.msg_share_more|Message to send if user has a share more than set value for the ISP|

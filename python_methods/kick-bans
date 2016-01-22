@@ -1,0 +1,36 @@
+~NOTOC~
+Ban
+------
+This method allow you to ban a user with the given <code>nick</code>. You should also specify the <code>duration</code> (in seconds) and the ban type <code>flag</code>. The flag can be one of the following parameter:
+
+| Flag | Description|
+|-----------|------------|------------|
+|0|Nick and IP address are banned|
+|1|IP address is banned|
+|2|Nick is banned|
+|3|Range address is banned|
+|4|Host of level 1 is banned|
+|5|Host of level 2 is banned|
+|6|Host of level 3 is banned|
+|7|Share is banned|
+|8|Prefix of nick is banned|
+|9|Reverse host is banned|
+
+For example:
+
+          import vh
+          vh.Ban('Mario', 86400, 1)
+
+**Input paramters:** **1=** nick, **2=** duration, **3=** flag
+
+KickUser
+-----------------
+This method allow you to kick a user with the given <code>nick</code> with <code>reason</code>. You should also specify the <code>op</code> that should appear. For example:
+
+          import vh
+          vh.KickUser('Admin1', 'Mario', 'Faker!!')
+          vh.KickUser('Admin1', 'foobar', 'Spammer_BAN_2d')
+
+> As you can see from the second example you can also append the time at the end of the reason
+
+**Input paramters:** **1=** op, **2=** nick, **3=** reason

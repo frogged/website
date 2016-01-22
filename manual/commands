@@ -1,0 +1,210 @@
+This is a completed list of available commands in VerliHub. Commands are grouped by user's class and may change based on hub configuration (for example you can limit some commands to some class only). This is the list for the default hub configuration:
+
+Guest users (class 0)
+==================
+
+| Command | Description|
+|-----------|------------|------------|
+|+chat|Active main chat for you|
+|+rules|Displays a listing of the hub rules **\***|
+|+faq| Displays a list of helpful links if you are having trouble **\***|
+|+info|Show information about the hub|
+|+regme|Send a message to all OPs, asking them to register your nick|
+|+report &lt;user&gt; &lt;reason&gt;|Report a user to opchat for breaking the rules|
+|+myip|Shows you your IP address|
+|+myinfo|Shows you information about yourself|
+|+motd|Displays the Message of the Day (MOTD) **\***|
+|+me|Replaces +me with your nick, and then sends a message to main chat|
+|+nochat|Disable main chat for you|
+|+release|Show information about VerliHub development team|
+
+Commands marked with **\*** are [[file triggers|manual.messages#File_Triggers]]
+
+Registered user (class 1)
+==================
+| Command | Description|
+|-----------|------------|------------|
+|+passwd|Set your password|
+|+release|Show information about authors, translators, etc.|
+|+verlihub|See +release command|
+|+vh|See +release command|
+
+Operator (class 3)
+==================
+| Command | Description|
+|-----------|------------|------------|
+|!admins &lt;msg&gt;|Broadcast to administrators (class 5)|
+|!ban_time &lt;nick/ip&gt; &lt;reason&gt;|Temporarily bans a nickname or IP for the specified time (_time). Valid entries for time are Ns, Nm, Nh, Nd, NM, Nw, Ny where N is a number. If you do not include a time, then the ban is permanent. Perform the same action of !ban command|
+|!banhost1_time &lt;hostname&gt; &lt;reason&gt;|Bans the first level of the given DNS. See !ban command to format _time string|
+|!banhost2_time &lt;hostname&gt; &lt;reason&gt;|Bans the second level of the given DNS. See !ban command to format _time string|
+|!banhost3_time &lt;hostname&gt; &lt;reason&gt;|Bans the third level of the given DNS. See !ban command to format _time string|
+|!banhostr1_time &lt;hostname&gt; &lt;reason&gt;|Bans the leftmost part of the hostname. See !ban command to format _time string|
+|!banip_time &lt;ip&gt; &lt;reason&gt;|Bans IP address only. See !ban command to format _time string|
+|!bannick_time &lt;nick&gt; &lt;reason&gt;|Bans a nick only. See !ban command to format _time string|
+|!banrange_time &lt;range&gt; &lt;reason&gt;|Bans a range of IP addresses. Use &lt;start_ip-end_ip&gt; or &lt;CIDR&gt; notation. See !ban command to format _time string|
+|!banprefix_time &lt;prefix&gt; &lt;reason&gt;|Bans a nick prefix. See !ban command to format _time string|
+|!banshare_time &lt;share&gt; &lt;reason&gt;|Bans a share size; specify the exact share in bytes. See !ban command to format _time string|
+|!broadcast &lt;msg&gt;|Send broadcast message to all users|
+|!ccbroadcast &lt;:CC:&gt; &lt;msg&gt;|Sends a broadcast to users with the  specified country code(s) only|
+|!cheefs &lt;msg&gt;|Broadcast to cheefs (class 4)|
+|!class &lt;nickname&gt; &lt;new_class&gt;|Temporarily change the class (max to 5) of a user. Action will disappear at hub restarting|
+|!drop &lt;nick&gt;|Disconnects user from hub without giving him a reason and without banning him|
+|!gag &lt;nickname&gt; [time]|Mute a user in main chat for the time specified (default is 2 days)|
+|!gc|Prints a list of all configuration variables|
+|!getinfo &lt;nickname&gt;|Return IP address and hostname (if dns_lookup is set to 1)|
+|!gethost &lt;nickname&gt;|Return hostname (if dns_lookup is set to 1)|
+|!guests &lt;msg&gt;|Broadcast to guests (class 0)|
+|!hidekick &lt;nick&gt; &lt;reason&gt;|Kicks a user and does not announce it to the hub|
+|!hideme &lt;class&gt;|Hides yourself from users below the specified class|
+|!hubinfo|Show information about the hub|
+|!hublist|Send your hub information to the public hublist|
+|!infoban &lt;keyword&gt;|Lists all possible matches for what you entered as keyword (nick, IP, range). |
+|!infobanip &lt;ip&gt;|Lists all bans for specifyed IP|
+|!infobannnick &lt;nick&gt;|Lists all bans for specifyed nickname|
+|!infobanrange &lt;ip&gt;|Lists all bans for specifyed IP that belongs to a range|
+|!infoban_banrange_|Shows all current banned ranges|
+|!infoban_ipban_|Shows all current IP bans|
+|!infoban_nickban_|Shows all current nickbans|
+|!kick &lt;nick&gt; &lt;reason&gt;|Kick a users temporarily, so user will not be able to rejoin until a number of seconds will expire|
+|!lsban &lt;limit&gt;|Shows the most recent bans. Use &lt;limit&gt; to limit results|
+|!masters &lt;msg&gt;|Broadcast to masters (class 10)|
+|!nochats &lt;nickname&gt; [time])|Prevent a user from send public and private messages for the time specified (default is 2 days)|
+|!nodl &lt;nickname&gt; [time])|Prevent a user from download files for the time specified (default is 2 days)|
+|!nopm &lt;nickname&gt; [time])|Prevent a user from send private messages for the time specified (default is 2 days)|
+|!nosearch &lt;nickname&gt; [time]|Prevent users from searching for the time specified (default is 2 days)|
+|!ops &lt;msg&gt;|Broadcast to operators (class 3)|
+|!regclass &lt;nickname&gt; &lt;new_class&gt;|Change the class of a user based on given nickname|
+|!regdelete &lt;nickname&gt;|Removing a registered user based on given nickname|
+|!regdisable &lt;nickname&gt;|Temporarily disable a registered nickname without permanently removing it from the database|
+|!regenable &lt;nickname&gt;|Enable a temporarily disabled user with !regdisable command|
+|!reginfo &lt;nickname&gt;|See all information about a registered user|
+|!reglist [class=0]|List all users with the given class. Default is 0|
+|!regnewuser &lt;nickname&gt; &lt;class&gt; [password]|Register a new user with given class. Password is optional|
+|!regpass &lt;nickname&gt; &lt;password&gt;|Set user password|
+|!regprotect &lt;nickname&gt; &lt;class&gt;|Protect a user from the class minor or equal of the given value|
+|!regs &lt;msg&gt;|Broadcast to registered users (class 1)|
+|!reload|Reloads verlihub's configuration|
+|!set &lt;variable&gt; &lt;new_value&gt;|Change value of variables|
+|!topic &lt;topic&gt;|Change the topic shown in the top of the client window|
+|!unban &lt;ip_or_nick&gt; &lt;reason&gt;|Removes ban(s) from nickname or IP|
+|!unbannick &lt;nick&gt; &lt;reason&gt;|Removes nickname ban(s)|
+|!unbanhost1 &lt;hostname&gt; &lt;reason&gt;|Removes a first level hostname ban|
+|!unbanhost2 &lt;hostname&gt; &lt;reason&gt;|Removes a second level hostname ban|
+|!unbanhost3 &lt;hostname&gt; &lt;reason&gt;|Removes a third level hostname ban|
+|!unbanhostr1 &lt;hostname&gt; &lt;reason&gt;|Removes the leftmost part of a hostname ban|
+|!unbanip &lt;ip&gt; &lt;reason&gt;|Removes only existing ban(s) for IP|
+|!unbanprefix &lt;prefix&gt; &lt;reason&gt;|Removes a nickname prefix ban|
+|!unbanshare &lt;share&gt; &lt;reason&gt;|Removes a share size ban. Specify the exact share in bytes|
+|!unbanrange &lt;range&gt; &lt;reason&gt;|Removes a range of IP bans. &lt;range&gt; may be the range, or any IP in the range|
+|!unban hostban &lt;reason&gt;|Removes ALL current host bans|
+|!unban ipban &lt;reason&gt;|Removes ALL current IP bans|
+|!unban nickban &lt;reason&gt;|Removes ALL current nick bans|
+|!unban rangeban &lt;reason&gt;|Removes ALL current range bans|
+|!unban shareban &lt;reason&gt;|Removes ALL current share bans|
+|!unban tempban &lt;reason&gt;|Removes ALL current temp bans|
+|!ungag &lt;nickname&gt;|Un-mute a gagged user|
+|!unhidekick &lt;nickname_list|Show kick message again. Remove !hidekick action|
+|!unnochats &lt;nickname&gt;|Remove no-chats restriction|
+|!unnodl &lt;nickname&gt;|Remove no-download restriction|
+|!unnopm &lt;nickname&gt;|Remove no-PM restriction|
+|!unnosearch &lt;nickname&gt;|Remove search restriction|
+|!vips &lt;msg&gt;|Broadcast to VIPs (class 2)|
+|!whoip &lt;IP address&gt;|Search users with given IP address|
+|!whorange &lt;lower IP&gt;-&lt;upper IP&gt;|Shows nicknames in the given range of IP addresses|
+|!whorange &lt;IP&gt;/&lt;left mask bits&gt;|Shows nicknames in the given subnet|
+
+Admin (class 5)
+==================
+| Command | Description|
+|-----------|------------|------------|
+|!addconntype &lt;connection_type&gt; &lt;params&gt;|Add the &lt;connection_type&gt; with their restrictions|
+|!addplug &lt;params&gt;|Register new plugin|
+|!addtag &lt;name&gt; &lt;params&gt;|Adds a rule for the client|
+|!addtrigger &lt;trigger&gt; &lt;params&gt;|Adds a new trigger|
+|!cleanbanlist|Truncate ban table|
+|!cleankicklist|Truncate kick table|
+|!cleantemprights|Truncate temp rights table|
+|!cleanunbanlist|Truncate unban table|
+|!delconntype &lt;connection_type&gt;|Remove specified &lt;connection_type&gt;|
+|!delplug &lt;nick&gt;|Unregisters the plugin|
+|!deltag &lt;name&gt;|Remove a client|
+|!deltrigger &lt;trigger&gt;|Remove a trigger|
+|!htag||Shows help|
+|!htrigger|Show an help and available trigger flags|
+|!lstconntype|Shows the current connection type and their restrictions|
+|!lstplug|List the registered plugins|
+|!lsttag||Lists available clients|
+|!lsttrigger|Lists available triggers|
+|!modconntype &lt;conn_type&gt; &lt;params&gt;|Update the &lt;connection_type&gt; with their restrictions|
+|!modtrigger &lt;trigger&gt; &lt;params&gt;|Change a trigger|
+|!offplug &lt;nick&gt;|Turns the plugin off|
+|!onplug &lt;nick&gt;|Turns the plugin on|
+|!proto &lt;action&gt;_&lt;target&gt; &lt;data&gt;|Send protocol command to users|
+|!regset &lt;nickname&gt; hide_keys &lt;0/1&gt;|Hide key operator for the given nickname. 1 to hide, 0 to show|
+|!regset &lt;nickname&gt; hide_share &lt;0/1&gt;|Hide share of the given nickname. 1 to hide, 0 to show|
+|!regset &lt;nickname&gt; note_op &lt;message&gt;|Add a note for the registered user in the database|
+|!replug &lt;nick&gt;|Reloads the plugin, turning it off then on|
+|!ul &lt;user_limit&gt; [time_in_minutes]| Temporarily change the max_users variable to given limit. If time (in minutes) is not specified, it will be assumed 1 hour|
+
+Master (class 10)
+==================
+| Command | Description|
+|-----------|------------|------------|
+|!core_dump|Crash the hub so that stack trace can be examineted by debugger program like GDB|
+|!gdb_hash|Quit the hub and dump the content of the user list|
+|!restart|Restart the hub|
+|!quit|Close the hub|
+
+Plugins
+==================
+| Command | Description|
+|-----------|------------|------------|
+|!addforbid &lt;pattern&gt; [-C &lt;max_class&gt;] [-f &lt;flags&gt;] [-r &lt;kick_reason&gt;]|Adds a forbidden pattern. See below the table for more information regarding the parameters|
+|!addisp &lt;iprange&gt; &lt;other_parameters&gt;|Add new ISP. See below the table for more information regarding the parameters|
+|!addplug &lt;nick&gt; -p &lt;path&gt; [-d desc] -a &lt;autoload (0/1)&gt;|Register new plugin. Nick is a short plugin nickname, path is a relative or absolute path to the plugin's binary, desc is an optional description and autoload set to 1 means that plugin will start with hubsoft|
+|!addreplacer &lt;word&gt; &lt;replacement word&gt; &lt;level of immunity&gt;|Adds a word replacement. You can specify level of immunity so user with class equal or bigger than to given value will be immune to the word replacement|
+|!addroom &lt;nick&gt; [-CC &lt;country code&gt;] [-ac &lt;min_auto_class&gt;][-AC &lt;max_auto_class&gt;][-c &lt;min_class&gt;][-t &lt;topic&gt;]|Create a chatroom named nick. When specifying the nickname, make sure to respect nickname rules.  See below the table for more information regarding the parameters|
+|!delforbid &lt;pattern&gt;|Deletes forbidden pattern|
+|!delisp &lt;ipmin/iprange&gt;|Deletes the given ISP. See below the table for more information regarding the parameters|
+|!delplug &lt;nick&gt;|Unregisters the plugin|
+|!delreplacer &lt;word&gt;|Removes an entry|
+|!delroom &lt;nick&gt;|Removes specified chat room|
+|!getreplacer|Lists words to replace|
+|!iplog &lt;ip&gt;|Shows log history for given IP address|
+|+invite &lt;online_users_nick&gt; &lt;invite message&gt;|Invites a person into the chatroom with an optional invitation message|
+|!lastip &lt;nick&gt; [ &lt;limit=10&gt;]|Shows last IP addresses for given nickname|
+|!lastnick &lt;ip&gt; [ &lt;limit=10&gt;]|Shows the last nicknames used by the given IP address|
+|+leave|User can use this command to leave the room; no messages from the chatroom will be received|
+|!lstplug|List the registered plugins|
+|!lstroom|Lists all available chatrooms|
+|!luainfo|Show information about running scripts|
+|!lstforbid|Lists forbidden patterns|
+|!lstisp|Give a list of ISPs|
+|!lualist|Lists loaded LUA scripts|
+|!luaload &lt;script&gt;|Loads specified LUA script using relative path to VerliHub config folder|
+|!lualog &lt;enable (0/1)&gt;|Enable or disable LUA debug when you load a new script|
+|!luareload &lt;script / ID&gt;|Reload a script, instead of using !luaunload and then !luaload or script ID as proposed with lualist command|
+|!luaunload &lt;script / ID&gt;|Unloads specified LUA script using relative path to VerliHub config folder or script ID as proposed with lualist command|
+|!luaversion|Show information about LUA library|
+|!modforbid &lt;pattern&gt;|Modifies forbidden pattern. See below the table for more information regarding the parameters|
+|!modisp &lt;iprange&gt; &lt;other_parameters&gt;|Edit existing ISP. See below the table for more information regarding the parameters|
+|+msgip &lt;ip&gt; &lt;topic/subject&gt; &lt;message text&gt;|Sends a message to IP and will be displayed next time they log in|
+|+msgsend &lt;nick&gt; &lt;topic/subject&gt; &lt;message text&gt;|Sends a message to given nickname and will be displayed next time they log in|
+|!nicklog &lt;nick&gt;|Show log history for given nickname|
+|!offplug &lt;nick&gt;|Turns the plugin off|
+|!onplug &lt;nick&gt;|Turns the plugin on|
+|+out &lt;nick&gt;|Excludes a user from the chatroom. This command is different from the previous one because can be used by OP to exclude a user from the room|
+|!pluglist all|List all loaded plugins|
+|!plugin &lt;plugin_filename.so&gt;|After you have compiled a plugin, you can use this command to load it. You need to specify the name of the plugin with its extension (.so). You can find all plugins in _/usr/local/bin_ depending on installation prefix. For example to load hublist plugin use !plugin /usr/local/lib/libhublink_pi.so|
+|!plugout &lt;plugin_name&gt;|Unload a plugin use. You need to specify the plugin name that is available using the _!pluglist all_ command. Remember not to include the plugin version|
+|!plugreload &lt;plugin_name&gt;|Reload a plugin. Use always the plugin name|
+|!pylist|Lists loaded Python scripts|
+|!pyload &lt;script&gt;|Loads specified Python script using relative path to VerliHub config folder|
+|!pylog &lt;enable (0/1)&gt;|Enable or disable Python debug when you load a new script|
+|!pyreload &lt;script / ID&gt;|Reload a script, instead of using !pyunload and then !pyload or script ID as proposed with lualist command|
+|!pyunload &lt;script / ID&gt;|Unloads specified Python script using relative path to VerliHub config folder or script ID as proposed with lualist command|
+|!replug &lt;nick&gt;|Reloads the plugin, turning it off then on|
+
+You can see this list using from hub this command:
+
+    !help

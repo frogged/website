@@ -1,0 +1,16 @@
+The ulimit command provides control over the resources available to the shell and/or to processes started by it, on systems that allow such control. 
+If you have a hub with thousands of users, they can be disconnected from the hub because of ulimit.
+
+If you run the hub as root you can't set the ulimit to an unlimited value:
+
+	ulimit -n <users>
+
+<users> should be a number and if you set it to 20000, Linux will limit the max number of open connections to 20000.
+
+If you are running the hub as normal user, you must tell the system to allow a soft and hard limit for that user.
+In this case you need to edit the file **/etc/security/limits.conf** and adding the following lines:
+
+	username soft nofile 20480 
+	username hard nofile 20480 
+
+where username is the name of the user with whom you are running the hub. Then next time you login with that user and type ulimit -n command, you will see the new limit.

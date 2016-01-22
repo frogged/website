@@ -1,0 +1,196 @@
+~NOTOC~
+
+VH:GetUserClass
+------------------
+Returns the numeric value of class between 0 and 10 for the given <code>nick</code>. For example:
+
+        result, class = VH:GetUserClass (nick);
+        if class < 5 then
+               your code here .....
+        end
+
+**Input parameters:** **1=** nick
+
+VH:GetUserHost
+------------------
+Returns with the host of the given user's <code>nick</code>. For example:
+
+        result, host = VH:GetUserHost (user)
+        if host and (string.len (host) > 0) then
+             return host
+        else
+             return nil
+        end
+
+**Input parameters:** **1=** nick
+
+VH:GetUserIP
+------------------
+Returns the IP address for the given <code>nick</code>. For example:
+
+        result, userip = VH:GetUserIP (user)
+        if userip and (string.len (userip) > 0) then
+             return userip
+        else
+             return nil
+        end
+
+**
+Input parameters:** **1=** nick
+
+VH:GetUserCC
+------------------
+Returns the Country Code (CC) for the given <code>nick</code>. For example:
+
+        result, usercc = VH:GetUserCC (user)
+        if usercc or (usercc == "User not found") then
+                  return nil
+        elseif usercc == "" then
+          return "Not found"
+        else
+               return usercc
+        end
+
+**Input parameters:** **1=** IP
+
+VH:GetIPCC
+------------------
+Returns the Country Code (CC) for the given <code>ip</code> address. For example:
+
+        result, usercc = VH:GetIPCC (ip)
+        if usercc or (usercc == "User not found") then
+                return nil
+        elseif usercc == "" then
+               return "Not found"
+        else
+                return usercc
+        end
+
+**Input parameters:** **1=** ip
+
+VH:RegBot
+------------------
+This method allows you to register a new bot in the hub with given <code>nick</code>, <code>class</code>, <code>description</code>, <code>speed</code>, <code>email</code> and <code>share</code>. For example:
+
+        VH:RegBot ('Mario', 3, 'Hello users', 'DSL', 'newbot@myhub.com', 0)
+
+**Input parameters:** **1=** nick, **2=** class, **3=** description, **4=** speed, **5=** email, **6=** share
+
+**Old method:** VH:AddRobot
+
+VH:UnRegBot
+------------------
+This call remove the previously registered bot from the userlist with <code>nick</code>. For example:
+
+        VH:UnRegBot ('Mario')
+
+**Input parameters:** **1=** nick
+**Old method:** VH:DelRobot
+
+VH:EditBot
+------------------
+This call edit the previously registered bot from the userlist with the new values for <code>nick</code>, <code>class</code>, <code>description</code>, <code>speed</code>, <code>email</code> and <code>share</code>. For example:
+
+        VH:EditBot ('Mario', 5, 'Hello users', 'DSL', 'mynewemail@myhub.com', -1)
+
+**Input parameters:** **1=** nick, **2=** class, **3=** description, **4=** speed, **5=** email, **6=** share
+
+VH:IsBot
+------------------
+Check if given _nick_ is bot or not.
+
+**Input parameters:** **1=** nick
+
+VH:AddRegUser
+------------------
+Register a new user with given <code>class</code> number, <code>nick</code>, <code>password</code> and the nickname of the <code>op</code> that should register the user. For example:
+
+        VH:AddRegUser ('Mario', '@32Hdd', 5, 'Owner')
+
+ will register a new Admin.
+
+**Input parameters:** **1=** nick, **2=** password, **3=** class, **4=** op
+
+VH:DelRegUser
+------------------
+Remove the register user with <code>nick</code>.
+
+**Input parameters:** **1=** nick
+
+VH:IsUserOnline
+------------------
+Check if user with <code>nick</code> is online or not.
+
+**Input parameters:** **1=** nick
+
+VH:GetMyINFO
+------------
+It returns the full MyINFO string of the given <code>nick</code>. For example:
+
+   
+        result, myinfo = VH:GetMyINFO('Mario')
+        if myinfo and (string.len (myinfo) > 0) then
+            return myinfo
+        else
+            return nil
+        end
+
+will return a string like this:
+
+        $MyINFO $ALL Mario [[2M/192K]]<++ V:0.698,M:A,H:0/0/1,S:3>$DSL?$no@spam.thx$152177393537$
+
+**Input parameters:** **1=** nick
+
+VH:Disconnect
+------------------
+Use this to remove a user from the hub with <code>nick</code>. For example:
+
+        VH:Disconnect ('Mario')
+
+ will drop the given user.
+
+**Input parameters:** **1=** nick
+
+**Old method:** VH:CloseConnection or VH:DisconnectByName
+
+VH:InUserSupports
+------------------
+Check if user with <code>nick</code> has the given <code>flag</code> in the $Supports message. The extension/flag can be one of the following parameter:
+
+- OpPlus
+- NoHello
+- NoGetINFO
+- DHT0
+- QuickList
+- BotINFO
+- ZPipe0
+- ChatOnly
+- MCTo
+- UserCommand
+- 
+BotList
+- HubTopic
+- UserIP2
+- TTHSearch
+- Feed
+- ClientID
+- IN
+- BanMsg
+- TLS
+
+**Input parameters:** **1=** nick, **2=** flag
+
+VH:GetBots
+------------------
+Get the list of all registered bots. This method will return the following information for each bot:
+
+- **Scriptname**: the script that has loaded the bot
+- **sNick**: the nickname of the bot
+- **iClass**: the numerical class of the bot
+- **iShare**: current share
+- **sMyINFO**: the MyINFO    <span class="label label-danger">CHECK THIS!</label>
+
+
+VH:GetBotList
+------------------
+ <span class="label label-danger">TODO</label> 

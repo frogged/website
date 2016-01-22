@@ -1,0 +1,154 @@
+~NOTOC~
+
+GetUserClass
+------------------
+Returns the numeric value of class between 0 and 10 for the given <code>nick</code>. For example:
+
+        import vh
+        class = vh.GetUserClass (nick);
+        if class < 5:
+               your code here .....
+
+**Input parameters:** **1=** nick
+
+GetUserHost
+------------------
+Returns with the host of the given user's <code>nick</code>. For example:
+
+        import vh
+        def host(nick):
+             host = vh.GetUserHost (user)
+             if host and (len(host) > 0):
+                  return host
+             else:
+                  return 0
+
+**Input parameters:** **1=** nick
+
+GetUserIP
+------------------
+Returns the IP address for the given <code>nick</code>. For example:
+
+        import vh
+        def getip(user):
+             userip = vh.GetUserIP(user)
+             if userip and (string.len (userip) > 0):
+                  return userip
+             else:
+                  return 0
+
+**Input parameters:** **1=** nick
+
+GetUserCC
+------------------
+Returns the Country Code (CC) for the given <code>nick</code>. For example:
+
+        import vh
+        def getcc(user):
+            usercc = vh.GetUserCC (user)
+            if usercc or (usercc == "User not found"):
+                      return 0
+            elif usercc == "":
+              return "Not found"
+            else:
+                   return usercc
+
+**Input parameters:** **1=** IP
+
+GetIPCC
+------------------
+Returns the Country Code (CC) for the given <code>ip</code> address. For example:
+
+        import vh
+        def getccfromip(ip):
+            usercc = vh.GetIPCC (ip)
+            if usercc or (usercc == "User not found"):
+                    return 0
+            elif usercc == "":
+                   return "Not found"
+            else:
+                    return usercc
+
+**Input parameters:** **1=** ip
+
+GetIPCN
+-------
+Returns the Country Name (CN) for the given <code>ip</code> address. For example:
+
+        import vh
+        def getcnfromip(ip):
+            usercn = vh.GetIPCN(ip)
+            if usercn or (usercc == "User not found"):
+                    return 0
+            elif usercn == "":
+                   return "Not found"
+            else:
+                    return usercn
+
+**Input parameters:** **1=** ip
+
+AddRobot
+------------------
+This method allows you to register a new bot in the hub with given <code>nick</code>, <code>class</code>, <code>description</code>, <code>speed</code>, <code>email</code> and <code>share</code>. For example:
+
+        import vh
+        vh.AddRobot ('Mario', 3, 'Hello users', 'DSL', 'newbot@myhub.com', 0)
+
+**Input parameters:** **1=** nick, **2=** class, **3=** description, **4=** speed, **5=** email, **6=** share
+
+DelRobot
+------------------
+This call remove the previously registered bot from the userlist with <code>nick</code>. For example:
+
+        import vh
+        vh.DelRobot ('Mario')
+
+**Input parameters:** **1=** nick
+
+GetMyINFO
+------------
+It returns the full MyINFO string of the given <code>nick</code>. For example:
+
+        import vh
+        myinfo = vh.GetMyINFO('Mario')
+        if myinfo and (len(myinfo) > 0):
+            return myinfo
+        else:
+            return 0
+
+will return a string like this:
+
+        $MyINFO $ALL Mario [[2M/192K]]<++ V:0.698,M:A,H:0/0/1,S:3>$DSL?$no@spam.thx$152177393537$
+
+**Input parameters:** **1=** nick
+
+CloseConnection
+------------------
+Use this to remove a user from the hub with <code>nick</code>. For example:
+
+        import vh
+        vh.Disconnect ('Mario')
+
+ will drop the given user.
+
+**Input parameters:** **1=** nick
+
+UserRestrictions
+----------------
+This method restricts user's activity with <code>nick</code>. For the other input parameters you should set the duration flag:
+
+| Flag | Description|
+|-----------|------------|------------|
+|Empty value ("")|Don't change the restriction|
+|0|Unset the restriction|
+|1|Set the restriction to the default duration (2 days)|
+|Any other valid time value|You can specify the time value followed by time unit.  To format the time please check [[this paragraph|manual.kick-ban#Temporarily_banning_a_user]]|
+
+For more information about restrictions, please read [[Actions on user paragraph|manual.users#Actions_on_user]] in the Manual. For example:
+
+        import vh
+        vh.UserRestrictions('Mario', '', 1, '3h', '')
+
+This will prevent Mario to chat for 2 days and to search for 3 hours. Other restrictions will not be changed.
+
+**Input parameters:** **1=** nick, **2=** nochattime, **3=** nopmtime, **4=** nosearchtime, **5=** noctmtime

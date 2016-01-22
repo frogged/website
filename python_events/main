@@ -1,0 +1,31 @@
+~NOTOC~
+
+Unload
+---------
+This is called before the script is unloaded. For example:
+
+        import vh
+        def Unload():
+			 vh.SendPMToAll('Python script has just been unloaded', vh.opchatname, 3, 10);
+
+or to remove a BOT previously added with <code>AddRobot</code>:
+
+        import vh
+        def UnLoad():
+            vh.DelRobot('Crazy BOT')
+
+OnTimer
+-----------------
+Called every seconds as the time specified in the <code>timer_serv_period</code> variable. For example to print the date in OPChat:
+
+        import vh, time
+        time = time.time ()
+        def OnTimer():
+             if(time.time () - (time+10) <= 10):
+				  vh.SendPMToAll('Hurry up!', vh.opchatname, 3, 10);
+
+It will print the given string in OP Chat twenty times.
+
+> **Note** that in Python functions if no return value is specified, or you don't use the return keyword, Python automatically returns the value None. Return 1 to perform the hub action.
+
+> The input parameters are always strings and they never contains end-pipe

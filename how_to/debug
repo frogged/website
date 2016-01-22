@@ -1,0 +1,30 @@
+Here a guide how to debug Verlihub in case it crashes.
+
+First of all install the debugger tool gdb. Then start verlihub with:
+
+	gdb verlihub 2>&1 | tee ~/gdb-verlihub.txt
+
+It will prompt you in gdb console something like this: 
+
+	netcelli@amd ~ $ gdb verlihub 2>&1 | tee ~/gdb-verlihub.txt
+
+	GNU gdb 6.8
+	Copyright (C) 2008 Free Software Foundation, Inc.
+	License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+	This is free software: you are free to change and redistribute it.
+	There is NO WARRANTY, to the extent permitted by law. Type "show copying"
+	and "show warranty" for details.
+	This GDB was configured as "x86_64-pc-linux-gnu"...
+	(gdb)
+
+Now start the process by typing "run" and press enter. GDB will start Verlihub in debug mode, that means you can see Verlihub logs in your console. Wait for a crash and in gdb console type:
+
+	(gdb) backtrace full
+	(gdb) info registers
+	(gdb) x/16i $pc
+	(gdb) thread apply all backtrace
+	(gdb) quit
+
+This will save a lot of debug info in gdb-verlihub.txt file to understand why the process just crashed. Send that file to [Git hub issues page](https://github.com/verlihub/verlihub-1.0.0/issues/).
+
+Also since version 1.0.0 hub will attempt to send crash backtrace to [Verlihub Crash Server](http://crash.verlihub.net/) via HTTP protocol, or in case of failure write it to error log file.

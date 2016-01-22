@@ -1,0 +1,41 @@
+~NOTOC~
+OnOperatorKicks
+------------------
+This method is called when an operator makes a new kick. It returns the op who executed the command, the kicked user's<code>nick</code> and the kick <code>reason</code>. Return false to ignore the kick, otherwise return true. For example:
+
+        import vh
+        def OnOperatorKicks (op, nick, reason):
+             vh.SendPMToAll('LOGGER: ' + op + ' has just kicked "' + nick + '" with reason: "' + class + '"', vh.opchatname, 3, 10);
+             return 1;
+
+**Input parameters:** **1=** op, **2=** nick, **3=** reason
+
+OnOperatorDrops
+------------------
+This method is called when an operator drops a user using the !drop command. It returns the <code>op</code> who executed the command and user's <code>nick</code>. Return false to ignore the drop, otherwise return true. For example:
+
+        import vh
+        def OnOperatorDrops (op, nick):
+              vh.SendPMToAll('LOGGER: ' + op + ' has just dropped "' + nick + '"', vh.opchatname, 3, 10);
+              return 1;
+ 
+
+**Input parameters:** **1=** op, **2=** nick
+
+OnNewBan
+------------------
+This method is called when an operator bans a user. It returns the <code>op</code> who executed the command, the user's <code>nick</code> and <code>ip</code> and the ban <code>reason</code>. For example:
+
+        import vh
+        def OnNewBan (op, ip, nick, reason):
+              vh.SendPMToAll('LOGGER: ' + op + ' has just banned "' + nick + '" (IP: ' + ip + ')with reason: "' + reason + '"', vh.opchatname, 3, 10);
+              return 1;
+
+Return false to ignore the ban, otherwise return true.
+
+**Input parameters:** **1=** op, **2=**ip, **3=** nick, **4=** reason
+
+
+> **Note** that in Python functions if no return value is specified, or you don't use the return keyword, Python automatically returns the value None. Return 1 to perform the hub action.
+
+> The input parameters are always strings and they never contains end-pipe

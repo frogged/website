@@ -1,0 +1,31 @@
+~NOTOC~
+VH:SQLQuery
+------------------
+With this method you can run a query of your MySQL database:
+
+         result, count = VH:SQLQuery ("DELETE FROM `reglist` WHERE `nick` = '".. nick .."' LIMIT 1")
+
+ The method will return the number of total rows in the _count_ variable. 
+
+ > UPDATE and DELETE queries returns as _count_ 0
+
+**Input parameters:** **1=** query
+
+VH:SQLFetch
+------------------
+With this method you can retrieve data from selected rows with VH:SQLQuery method. _Row_ is the number of the row. For example:
+
+        result, rows = VH:SQLQuery ("SELECT `nick`, `class`, `reg_op` FROM `reglist` WHERE `nick` LIKE '%Mar%' ORDER BY `nick` ASC")
+        if rows > 0 then
+              for x = 0, rows - 1 do
+              result, nick, class, reg_op = VH:SQLFetch (x)
+              other code ....
+        end
+
+ > Note that row indexes are zero based.
+
+**Input parameters:** **1=** row number
+
+VH:SQLFree
+------------------
+It clears memory from last query requested with VH:SQLQuery method. After this method VH:SQLFetch will always result false. 

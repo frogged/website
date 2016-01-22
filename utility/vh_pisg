@@ -1,0 +1,28 @@
+You can generate config file and statistics for your hub using (http://pisg.sourceforge.net/ "Pisg"). After installing the [[Manual.Plugins#Pisg|plugin]] you need to install pigs software. Download last version from [http://pisg.sourceforge.net/index.php?page=download](http://pisg.sourceforge.net/index.php?page=download "Pisg home") and unpack it in your home folder or wherever you want.
+Now to configure pisg we have created a script called _vh\_pisg_ that is installed with plugin.
+
+This is the output if you type vh_pisg --help:
+
+    vh_pisg.in
+    This is a utility script for configure pisg for DC++, usage:
+       --generate   Generate pisg config file
+       --cron       Install a new cron job to collect stats
+       --help       Show this help
+
+First you need to generate pisg config file using:
+
+    vh_pisg --generate
+
+This will ask you some information:
+
+- **Config path**: the path to config of the hub you want to generate statistic (where is located dbconfig file)
+- **Location of generated HTML file**: pisg will generate a index.html page with all graphs. Pisg need to put this file in the public folder of web server
+- **Path to pisg**: the completed path to pisg file (this the folder where you extracted the tarball)
+
+If the file has been correctly generated now you need to run pisg at least every hour using crontab to regenerate index.html file. In this case you can use always _vh\_pisg_:
+
+    vh_pisg --cron
+
+type again config path and the script will install new cron job with your current user for every hour. If you want to generate stats more frequently you can edit the job using:
+
+    crontab -e

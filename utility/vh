@@ -1,0 +1,112 @@
+~NOTOC~
+These are all available options that you can use with this script:
+
+    -i, --install                         Configure Verlihub for a new hub
+    -r, --run     [path_to_dbconfig]      Run the hub from the given dbconfig path
+    -q, --restart [path_to_dbconfig]      Restart the hub from the given dbconfig path
+    -s, --stop    [path_to_dbconfig]      Stop the hub from the given dbconfig path
+    -t, --status  [path_to_dbconfig]      Check if hub is running or not
+    -g, --geoip                           Update GeoIP
+    -a, --autoload                        Load plugin automatically when start the hub
+         -l, --list                              Show list of available plugins
+         -n, --on                                Run plugin automatically with hub
+         -f, --off                               Disable auto load of plugin
+         -d, --configdir  [path_to_dbconfig]     Specify the hub with location of dbconfig file. Optional
+    -u, --adduser <nick> <password> <class> [path_to_dbconfig]    Register a new user in the database
+    -c, --clean   [path_to_dbconfig]                      Clean kicklist, banlist, unbanlist, iplog, stats and messages tables
+    -w, --backup  <destination_path> [path_to_dbconfig]   Make backup of database from the given dbconfig path
+    -t, --restore <path_to_sql>      [path_to_dbconfig]   Import the given SQL file in the database for given dbconfig path
+    -v, --version                         Print version information
+    -h, --help                            Show this help
+
+Type <code>vh --help</code> to show this output.
+
+> To obtain the complete guide of this utility script in your shell you can read the man page for this command (<code>man vh</code>)
+
+Option --install
+===============
+The option allows you to install a new hub. For detailed explanation please read [[Manual.Installation|how to installing VerliHub]].
+
+Option --run
+============
+This option allows you to start the hub and run VerliHub as a daemon. VerliHub config folder can be omitted.
+If folder is omitted then the script will automatically try to guess them; the following folders will be searched in this order:
+
+- value of VERLIHUB_CFG enviroment variable
+- /etc/verlihub
+- PREFIX/etc/verlihub where PREFIX is the path where you installed VerliHub
+- ./.verlihub
+- ~/.verlihub (~ means your home directory)
+
+If no directory will be found, the script will return an error.
+
+For example if you want to start the hub with config folder /etc/verlihub, then use:
+
+    vh --run /etc/verlihub
+
+Option --restart
+==================
+This option allows you to restart a running hub.
+You can also provide a VerliHub config folder; please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --stop
+==================
+This option allows you to stop a running hub.
+You can also provide a VerliHub config folder; please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --status
+==================
+This option allows you to check if a hub is running or not. You can also provide a VerliHub config folder; please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --geoip
+==================
+This option allows you to update GeoIP DAT file in /usr/share/GeoIP folder. Script will download tarball from Maxmind server and it will unpack in that folder. You can also use this command in crontab, please see [[How-to.Update-GeoIP-automatically|Update GeoIP database automatically]] page.
+
+Option --autoload
+==================
+This option allow you to create symbolic link in the hub config folder to load plugins automatically with VerliHub.
+You have to specify one the following options:
+
+- --list: show a list of installed plugins and their status
+- --on: load plugin automatically
+- --off: disabled autoload feature of plugin
+
+You can specify the config directory using _--configdir_ option; this is optional, please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --adduser
+==================
+This option allows you to add a new user to the hub.
+You have to specify the following extra options to create a new user:
+
+- **--nickname &lt;nickname&gt;**: the nickname of the user
+- **--password &lt;password&gt;**: the password of the user. This is optional and it can be provided by the user.
+- **--class &lt;class&gt;**: the class of the user. Allowed values are -1, 0, 1, 2, 3, 4, 5, 10. Please refer to [[Manual.users-and-privileges|users & privileges manual chapter]] for more information about those classes.
+- **--configdir &lt;path_to_dbconfig&gt;**: VerliHub config folder. This is optional; please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --clean
+==================
+This option will ask you if you want to clean up kicklist, banlist, unbanlist, pi_iplog, pi_messages and pi_stats tables (plugins tables will be dropped only if they exists) using _TRUNCATE_ method. This means that all data in these tables will be removed.
+
+Option --backup
+==================
+This option allows you to make a backup of database that VerliHub uses to store registered users, triggers, configuration, etc. You have to specify a folder where you want to store the backup. For example if you want to save it to /home/foobar type:
+
+    vh --backup /home/foobar
+
+You can also provide a VerliHub config folder; please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --restore
+==================
+This option allows you to restore a backup created with  [[Utility.vh#Option_--backup|option --backup]] or with other MySQL utility. You have to specify the path to sql file that contains the backup. or example if you want to restore verlihub_backup.sql that is located at /home/foobar type:
+
+    vh --restore /home/foobar/verlihub_backup.sql
+
+You can also provide a VerliHub config folder; please refer to [[Utility.vh#Option_--run|option --run]] for more information.
+
+Option --version
+==================
+This option prints version information about this script and VerliHub.
+
+Option --help
+==================
+This option shows help for this script as shown at the begging of this page.

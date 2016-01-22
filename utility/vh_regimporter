@@ -1,0 +1,49 @@
+~NOTOC~
+This script will import registered users from PtokaX, YnHub and Aquila to VerliHub reglist table. These are all available options that you can use with this script:
+
+    --ptokax    <RegisteredUsers.xml> <Profiles.xml>    <path_to_dbconfig> Convert registrations from PtokaX to VerliHub
+    --ynhub     <accounts.xml> <profiles.xml> <path_to_dbconfig>            Convert registrations from YnHub to VerliHub
+    --aquila    <Aquila.xml> <path_to_dbconfig>                             Convert registrations from Aquila to VerliHub
+    --version       Print version information
+    --help          Show this help
+
+Type <code>vh_regimporter --help</code> to show this output.
+
+> To use converter you need libxml2 installed
+
+> To obtain the complete guide of this utility script in your shell you can read the man page for this command (<code>man vh_regimporter</code>)
+
+Option --ptokax
+==================
+To convert registered users you will need two XML files:
+
+- **RegisteredUsers.xml**: contains registered users with nickname, password and profile ID
+- **Profiles.xml**: contains information about profiles
+
+First script will ask you to map PtokaX profiles with VerliHub classes. Then program will automatically add all users in reglist tables. If a MySQL query will failed you will see a error about no-added user.
+
+Option --ynhub
+==================
+To convert registered users you will need two XML files:
+
+- **accounts.xml**: contains registered users with nickname, password and other information
+- **profiles.xml**: contains information about profiles
+
+This option will _also_ import:
+
+- Registration date
+- OP creator
+- Last login
+
+First script will ask you to map YnHub profiles with VerliHub classes. Then program will automatically add all users in reglist tables. If a MySQL query will failed you will see a error about no-added user.
+
+Option --aquila
+==================
+To convert registered users you will need only Aquila.xml file that is generated in configuration directory of the hub. This option will _also_ import:
+
+- Registration date
+- OP creator
+- Last login
+- Last IP
+
+First script will ask you to map Aquila profiles with VerliHub classes. Then program will automatically add all users in reglist tables. If a MySQL query will failed you will see a error about no-added user.

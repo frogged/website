@@ -1,0 +1,20 @@
+~NOTOC~
+Encode
+------
+This method converts the following characters to their applicable entities for the given <code>string</code>:
+
+| Character | Entity |
+|-----------|------------|------------|
+|?|&amp;#5;|
+|$|&amp;#36;|
+|`|&amp;#96;|
+|\||&amp;#124;|
+|~|&amp;#126;|
+
+**Input parameters**: **1=** string
+
+Decode
+------
+This is the reverse method to Encode. It converts the previous entities to their applicable characters for the given <code>string</code>:
+
+**Input parameters**: **1=** string 

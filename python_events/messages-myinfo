@@ -1,0 +1,199 @@
+~NOTOC~
+OnParsedMsgChat
+------------------
+Method is called when a incoming chat <code>message</code> arrives from user with <code>nick</code>. Return false to ignore the protocol message and not to send it to all users, otherwise return true. For example:
+
+        import vh
+        def OnParsedMsgChat (nick, data):
+             if nick == 'Mario':
+                 vh.SendPMToAll('MARIO has just wrote: "' + data + '"', vh.opchatname, 3, 10);
+                 return 1;
+
+**Input parameters:** **1=** nick, **2=** message.
+
+OnParsedMsgPM
+---------------------------
+Method is called when a incoming private <code>message</code> is sent to <code>dest</code> from user with <code>nick</code>. Return false to ignore the protocol message and not to send it to the user, otherwise return true. For example:
+
+        import vh
+        def OnParsedMsgPM (nick, data, dest):
+             if nick == 'Mario':
+                 vh.SendPMToAll('MARIO has just wrote to ' + dest + ' : "' + data + '"', vh.opchatname, 3, 10);
+                 return 1;
+
+**Input parameters:** **1=** nick, **2=** message, **3=** dest
+
+OnParsedMsgSearch
+------------------
+Method is called when $Search message arrives from user with <code>nick</code> with <code>data</code>. This event cannot be discarded. For example:
+
+        import vh
+        def OnParsedMsgSearch (nick, data):
+             if nick == 'Mario':
+                 vh.SendPMToAll('New $Search message from MARIO: "' + data + '"', vh.opchatname, 3, 10);
+                 return 1;
+
+**Input parameters:** **1=** nick, **2=** data. 
+
+OnUnknownMsg
+------------------
+This method is called when a no-NMDC protocol <code>message</code> arrives from user with <code>nick</code>. This event cannot be discarded. For example:
+
+       import vh
+       def OnUnknownMsg (nick, message):
+             vh.SendPMToAll('A new unknown message arrives from "' + nick + '": "' + data + '"', vh.opchatname, 3, 10);
+             return 1;
+
+**Input parameters:** **1=** nick/ip, **2=** message, **3=** is_nick 
+
+OnParsedMsgAny
+------------------
+This method is called when **any** type of <code>data</code> arrives from user with <code>nick</code> to the hub. For example when hub pinger enters in the hub:
+
+       import vh
+       def OnParsedMsgAny (nick, message):
+             vh.SendPMToAll('nick: "' + nick + '" data: ' + data, vh.opchatname, 3, 10);
+             return 1;
+
+you will see:
+
+       nick: "dchublist" data: $BotINFO DcHublistPinger
+       nick: "dchublist" data: $Version 1,0091
+       nick: "dchublist" data: $GetNickList
+       nick: "dchublist" data: $MyINFO $ALL dchublist DcHublistPinger<++ V:0.761,M:A,H:0/0/1,S:5>$ $Cable1$admin@dchublist.com$163353712394$
+
+Return false to ignore the protocol message otherwise return true. Please <span class="label label-info">be carefull</span> with this event.
+
+**Input parameters:** **1=** nick, **2=** data
+
+OnParsedMsgConnectToMe
+------------------------
+This method is called when a ConnectToMe data arrives from user with <code>nick</code> to <code>other_nick</code>. The method also provides the <code>ip</code> and <code>port</code> of the destination. For example:
+
+       import vh
+       def OnParsedMsgConnectToMe (nick, other_nick, ip, port):
+             vh.SendPMToAll('New CTM from "' + nick + '": $ConnectToMe " + other_nick.. " " + ip + ":" + port, vh.opchatname, 3, 10)
+             return 1;
+
+> $ConnectToMe message is sent by the user <code>nick</code> to user <code>other_nick</code> in order to initiate a connection at the destination <code>ip</code>:<code>port</code>.
+
+**Input parameters:** **1=** nick, **2=** othernick, **3=** ip, **4=** port
+
+
+OnParsedMsgRevConnectToMe
+------------------------
+This method is called when <code>nick</code> sends a RevConnectToMe data to <code>other_nick</code>. Return false to ignore the protocol message and not to send it, otherwise return true. For example:
+
+       import vh
+       def OnParsedMsgRevConnectToMe (nick, other_nick):
+             vh.SendPMToAll('"' + nick + '" has just sent a $RevConnectToMe to ' + other_nick + '"', vh.opchatname, 3, 10);
+             vh.SendPMToAll('$RevConnectToMe ' + nick + ' ' + other_nick, vh.opchatname, 3, 10);
+             return 1;
+
+> $RevConnectToMe message is sent by the passive user <code>nick</code> to the active user <code>other_nick</code> in order to ask him to send the $ConnectToMe message.
+
+**Input parameters:** **1=** nick, **2=** other_nick
+
+OnParsedMsgSR
+----------------
+This method is called when an incoming <code>search_reply</code> arrives from a user with <code>nick</code>. Return false to ignore the protocol message otherwise return true.
+
+> $SR message is sent by a client as a search reply to a previous $Search message
+
+**Input parameters:** **1=** nick, **2=** search_reply
+
+OnParsedMsgMyINFO
+----------------
+Called when $MyINFO <code>data</code> arrives to the hub from <code>nick</code>. Return false to ignore the protocol message otherwise return true. For example:
+
+        import vh
+        def OnParsedMsgMyINFO (nick, data):
+             vh.SendPMToAll('New MyINFo from "' + nick + '": ' + data, vh.opchatname, 3, 10);
+             return 1;
+
+If user Mario enters in the hub you will read in OPChat:
+
+         New MyINFO from "Mario": $MyINFO $ALL Mario  <EiskaltDC++ V:2.2.7,M:A,H:0/0/3,S:3>$ $20$$15012006720$
+
+**Input parameters:** **1=** nick, **2=** data
+
+OnParsedMsgSupport
+----------------
+This method is called when a $Support message with <code>data</code> arrives from user with <code>nick</code>. Return false to ignore the protocol message otherwise return true.
+
+> $Supports message is used to negotiate protocol extensions, to indicate what extended features a client possesses. 
+
+**Input parameters:** **1=** nick, **2=** data
+
+OnParsedMsgMyPass
+----------------
+This method is called when $MyPass message arrives from user with <code>nick</code>. It provides also the sent password in the <code>data</code> variable. Return false to ignore the protocol message otherwise return true. For example:
+
+        import vh
+        def OnParsedMsgMyPass (nick, data):
+             vh.SendPMToAll('User "' + nick + '" has just typed his password: ' + data, vh.opchatname, 3, 10);
+             return 1;
+
+> $MyPass message is sent by  <code>nick</code> to the hub in response to $GetPass message and contains the password in the plain text format.
+
+**Input parameters:** **1=** nick, **2=** data
+
+OnParsedMsgValidateNick
+----------------
+This method is called when a $ValidateNick message <code>data</code> arrives. Return false to ignore the protocol message otherwise return true. 
+<span class="label label-info">CHECK ME</span>
+
+> ValidateNick message is sent by the client to the hub, after the client has received the $Key message.
+
+**Input parameters:** **1=** data
+
+OnParsedMsgMCTo
+----------------
+This method is called when a new main chat <code>message</code> is parsed. Message is sent by <code>nick</code> to <code>target_nick</code>. This method can be useful for anti-spam check.
+
+**Input parameters:** **1=** nick, **2=** message, **3=** target_nick
+
+OnParsedMsgAnyEx
+----------------
+This method is called when user with <code>ip</code> sends <code>data</code> to the hub before login is completed. Return false to ignore the protocol message otherwise return true.
+
+**Input parameters:** **1=** ip, **2=** data
+
+OnParsedMsgBotINFO
+----------------
+This method is called when a $BotINFO message arrives from hublist pinger from user with <code>nick</code> with <code>data</code>. Return false to ignore the protocol message otherwise return true. For example:
+
+        import vh
+        def OnParsedMsgBotINFO (nick, data):
+             vh.SendPMToAll('Pinger "' + nick + '" has just sent: ' + data, vh.opchatname, 3, 10);
+             return 1;
+
+you will read in OPChat:
+
+        Pinger "dchublist" has just sent: $BotINFO DcHublistPinger
+
+**Input parameters:** **1=** nick, **2=**data
+
+OnParsedMsgVersion
+----------------
+This method is called when a $Version message arrives from <code>ip</code> with <code>data</code>, where data represents the version of the DC client. Return false to ignore the protocol message otherwise return true. For example:
+
+> $Version message is sent by a client to a hub in response to the $Hello message sent by a hub.
+
+**Input parameters:** **1=** ip, **2=** data
+
+OnFirstMyINFO
+----------------
+This method is called when user with  <code>nick</code> sends first $MyINFO during handshake. Additional information is returned.
+
+**Input parameters:** **1=** nick, **2=** description+tag, **3=** speed, **4=** email, **5=** sharesize
+
+OnValidateTag
+----------------
+This method is called when a <code>tag</code> is parsed and validated from user with <code>nick</code>. Return false to close the user connection, otherwise return true.
+
+**Input parameters:** **1=** nick, **2=** tag
+
+> **Note** that in Python functions if no return value is specified, or you don't use the return keyword, Python automatically returns the value None. Return 1 to perform the hub action.
+
+> The input parameters are always strings and they never contains end-pipe

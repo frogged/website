@@ -1,0 +1,79 @@
+~NOTOC~
+It is possible to run multi instances of Verlihub at same time. To make things easier it is a script called μ-Verlihub (multi-Verlihub) that helps you to manage some hubs. The script is called vh_multihub.
+
+> Remeber that **only root user** can use this script.
+
+These are all available options that you can use with this script:
+
+    μ-Verlihub (multi-Verlihub)
+    This is a utility to run, restart and stop hubs with Verlihub, usage:
+    --list                  Show a list of added hubs
+    --add                   Add new hub
+    --del       [ID]        Delete an hub
+    --run       [ID]        Run a single hub or all hubs togheter
+    --stop      [ID]        Stop a single hub or all hubs togheter
+    --restart   [ID]        Restart a single hub or all hubs togheter
+    --version               Print version information
+    --help                  Show this help
+
+Type <code>vh_multihub --help</code> to show this output.
+
+> To obtain the complete guide of this utility script in your shell you can read the man page for this command (<code>man vh_multihub</code>)
+
+Option --list
+==================
+The option shows you a list of added hubs and their status:
+
+![image](vh_multihub1.png "Show hubs")
+
+First number show the identifier (ID) of the entry. Green color means that hub is running, red color that hub is stopped.
+
+Option --add
+==================
+The option allows you to add a new hub to config file. Just run
+
+    vh_multihub --add
+
+and follow the instructions.
+
+![image](vh_multihub2.png "Add new hub")
+
+> Remember that you cannot add more hubs with same config path.
+
+Option --del
+==================
+This option allows you to delete an entry.
+You can specify the entry ID to delete as parameter or run the script without any option. In the later case the script proposes you a list of the hubs and it asks to choose the entry you want to delete.
+
+Option --run, --stop, --restart
+==================
+These options allow you to start, stop or restart hubs. You can specify an entry ID as parameter or run the script option only.
+In the later case the script proposes you a list of the hubs and it asks to choose the entry you want to manager.
+
+You can also use the character _A_ to select all hubs.
+
+![image](vh_multihub3.png "Action on hub")
+
+Option --version
+================
+This option prints version information about this script and VerliHub.
+
+Option --help
+=============
+This option shows help for this script as shown at the begging of this page.
+
+Structure of config file
+==================
+All hubs are stored inside a config file called verlihub.conf and it is located in /etc/ folder.
+This file is structured like /etc/passwd file. Each line represents an hub entry and one line contains the following values separeted by a comma (;):
+
+    CONFIG_PATH:NICKNAME:PROCESS_OWNER:DATE
+
+where
+
+- CONFIG_PATH is the complete path to dbconfig file of the hub
+- NICKNAME is just a reference to the hub (for i.e. the hub owner)
+- PROCESS_OWNER is the username that should run the process (you can use this value if you want to allow server access with different users)
+- DATE the unix timestamp of the last changes
+
+Please **do not edit** this file directly but use the options of vh_multihub script.

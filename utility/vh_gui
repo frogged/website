@@ -1,0 +1,54 @@
+~NOTOC~
+These are all available options that you can use with this script:
+
+     -i, --install                 Configure Verlihub for a new hub
+     -r, --run                     Run the hub from the given dbconfig path
+     -q, --restart                 Restart the hub from the given dbconfig path
+     -s, --stop                    Stop the hub from the given dbconfig path
+     -t, --status                  Check if hub is running or not
+     -v, --version                 Print version information
+     -h, --help                    Show this help
+
+Type <code>vh_gui --help</code> to show this output.
+
+Option --install
+===============
+The option allows you to install a new hub. For detailed explanation please read [[Manual.Installation|how to installing VerliHub]].
+
+Option --run
+============
+This option allows you to start the hub and run VerliHub as a daemon. You can choose the VerliHub config folder using the up/down keyword arrows:
+
+![image](gui_1.png "Run the hub - Choose config folder")
+
+If the hub is already running the script will return an error:
+
+![image](gui_2.png "Run the hub - Error")
+
+Otherwise, if you have permissions to write in the config folder and no error happens, you will see the following windows:
+
+![image](gui_3.png "Run the hub - Ok")
+
+
+Option --restart
+==================
+This option allows you to restart a running hub; please refer to [[Utility.vh_gui#Option_--run|option --run]] for more information.
+
+Option --stop
+==================
+This option allows you to stop a running hub; please refer to [[Utility.vh_gui#Option_--run|option --run]] for more information.
+
+
+Option --status
+==================
+This option allows you to check if a hub is running or not; please refer to [[Utility.vh_gui#Option_--run|option --run]] for more information.
+
+Option --version
+==================
+This option prints version information about this script and VerliHub.
+
+Option --help
+==================
+This option shows help for this script as shown at the begging of this page.
+
+> This script contains less features than _vh_ and it is thought to provide more support for those users who do not like interactions with the command line. For other advanced options such as DB backup/restore or GeoIp update please refer to [[Utility.vh|vh script]].

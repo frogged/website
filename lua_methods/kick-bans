@@ -1,0 +1,34 @@
+~NOTOC~
+VH:Ban
+------
+This method allow you to ban a user with the given <code>nick</code> with <code>reason</code>. You should also specify the <code>op</code> that should appear, the <code>duration</code> (in seconds) and the ban type <code>flag</code>. The flag can be one of the following parameter:
+
+| Flag | Description|
+|-----------|------------|------------|
+|0|Nick and IP address are banned|
+|1|IP address is banned|
+|2|Nick is banned|
+|3|Range address is banned|
+|4|Host of level 1 is banned|
+|5|Host of level 2 is banned|
+|6|Host of level 3 is banned|
+|7|Share is banned|
+|8|Prefix of nick is banned|
+|9|Reverse host is banned|
+
+For example:
+
+          result, error = VH_Ban('Mario', 'Admin1', 'Faker!!', 86400, 1)
+
+**Input paramters:** **1=** nickname, **2=** op, **3=** reason, **4=** duration, **5=** flag
+
+VH:KickUser
+-----------------
+This method allow you to kick a user with the given <code>nick</code> with <code>reason</code>. You should also specify the <code>op</code> that should appear. For example:
+
+          result, error = VH_KickUser('Admin1', 'Mario', 'Faker!!')
+          result, error = VH_KickUser('Admin1', 'foobar', 'Spammer_BAN_2d')
+
+> As you can see from the second example you can also append the time at the end of the reason
+
+**Input paramters:** **1=** op, **2=** nick, **3=** reason 

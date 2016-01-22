@@ -1,0 +1,39 @@
+~NOTOC~
+SQL
+---
+<span class="label label-info">TODO</span>
+
+**Input parameters:** **1=** query, **2=** limit
+
+SQLQuery
+------------------
+<span class="label label-info">not implemented yet</span>
+With this method you can run a query of your MySQL database. The method will return the number of total rows:
+
+         def runquery(query):
+                VH:SQLQuery ("DELETE FROM `reglist` WHERE `nick` = '".. nick .."' LIMIT 1") 
+
+ > UPDATE and DELETE queries returns as _count_ 0
+
+**Input parameters:** **1=** query
+
+SQLFetch
+------------------
+<span class="label label-info">not implemented yet</span>
+With this method you can retrieve data from selected rows with SQLQuery method. _Row_ is the number of the row. For example:
+
+        import vh
+        rows = VH:SQLQuery ("SELECT `nick`, `class`, `reg_op` FROM `reglist` WHERE `nick` LIKE '%Mar%' ORDER BY `nick` ASC");
+        if rows > 0:
+              for x in rows:
+                     result, nick, class, reg_op = vh.SQLFetch(x)
+                     other code ....
+
+ > Note that row indexes are zero based.
+
+**Input parameters:** **1=** row number
+
+SQLFree
+------------------
+<span class="label label-info">not implemented yet</span>
+It clears memory from last query requested with SQLQuery method. After this method SQLFetch will always result false.

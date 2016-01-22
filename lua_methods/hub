@@ -1,0 +1,125 @@
+~NOTOC~
+VH:ParseCommand
+------------------
+This method parses any hub or script <code>command</code> as it is written by specified user with <code>nick</code>. <code>pm</code> specify if  <code>command</code> has been sent in PM or MC.
+
+         result, data = VH:ParseCommand(nick, command, pm)
+
+Input parameters : **1=** nick, **2=** command, **3=** pm
+
+VH:SetConfig
+------------------
+Sets the config <code>variable</code> to the given <code>value</code> for the specified <code>configuration type</code>. Possible values for <code>config type</code> can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of plugin). For example:
+
+        result, error = VH:SetConfig("config","max_chat_msg","0")
+        result, error = VH:SetConfig("pi_floodprot", "max_conn_per_ip", "2")
+
+The first example will mute the main chat of the hub and the second one will change the max_conn_per_ip to two. 
+
+**Input parameters**: **1=** config type, **2=** variable, **3=** value
+
+VH:GetConfig
+------------------
+This method returns the value of a given <code>variable</code> for the specified <code>configuration type</code>. Possible values for <code>config type</code> can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of plugin). For example:
+
+        result, sBotname = VH:GetConfig("config","hub_security")
+        result, sMaxConn = VH:GetConfig("pi_floodprot","max_conn_per_ip")
+
+where sBotname will be the hub-security name in the first example.
+
+**Input parameters:** **1=** config type, **2=** variable
+
+VH:GetUsersCount
+------------------
+It returns the number of all online users. Bots and LUA registered bots will not be included in this list
+
+VH:GetNickList
+------------------
+This method returns the nicklist which contains all users in the hub. For example:
+
+        result, sNicklist = VH:GetNickList()
+
+will store in sNicklist:
+
+        $NickList user1$$user2$$user3$$usern$$
+
+It will contain also the hub security and OPChat bots.
+
+VH:GetTotalShareSize
+------------------
+It returns the total share size in byte. 
+
+VH:GetUpTime
+------------------
+This method returns the hub uptime in seconds. You can specify also the <code>uptime unit</code> to fit your needs:
+
+         result, uptime = VH:GetUpTime()  -- return seconds, no arguments, backward compatibility
+         result, uptime= VH:GetUpTime(1) -- return seconds, argument = 1, new style
+         result, uptime= VH:GetUpTime(2) -- return milliseconds, argument = 2, new style
+
+So you can simply implement this method in your script:
+
+         result, sec = VH:GetUpTime ()
+         if sec then
+              return tonumber (sec) or 0
+         else
+              return 0
+         end
+
+**Input parameters:** **1=** uptime unit
+
+VH:GetHubIp
+------------------
+This method returns the hub IP address. For example:
+
+        result, ip = VH:GetHubIp()
+
+will return the value of _listen\_ip_ variable.
+
+VH:GetHubSecAlias
+------------------
+This method returns the name of hub security bot. For example:
+
+        result, security = VH:GetHubSecAlias()
+
+will return the value of _hub\_security_ variable.
+
+VH:StopHub
+----------
+It stops/restart the hub with the given <code>code</code> error:
+
+| Error code | Description|
+|-----------|------------|------------|
+|-1|Crash hub and dump core|
+|0|Quit hub|
+|1|Restart hub|
+
+**Input parameters:** **1=** code
+
+VH:GetOPList
+------------------
+It returns the complete list of OPs including hub security and OPChat bots:
+
+         $OpList [SU]root$$Mario$$VerliHub$$OpChat$$
+
+VH:GetTopic
+------------------
+It returns the topic of the hub.
+
+VH:SetTopic
+------------------
+This method will set the hub topic to the given message.
+
+**Input parameters:** **1=** topic
+
+VH:GetVHCfgDir
+------------------
+Returns the path where configuration files are stored for the hub.
+
+VH:SetTempRights
+------------------
+This method has <span class="label label-warning">not been</span> implemented yet
+
+VH:GetTempRights
+------------------
+This method has <span class="label label-warning">not been</span> implemented yet 

@@ -1,0 +1,37 @@
+~NOTOC~
+These are all available options that you can use with this script:
+
+     --clean                              Clean directory from old binary/script files
+     --hub        <path_to_dbconfig>      Update hub database with the given dbconfig path
+     --help                               Show this help
+
+Type <code>vh_migration_0.9.8eto1.0 --help</code> to show this output.
+
+> You should use this script **ONLY** if you have updated VerliHub from version 0.9.8e to 1.0.
+
+> Before running the script make a backup copy of your database, then run it and restart the hub.
+
+Option --clean
+===============
+The option allows you to clean the VerliHub installation folder from following old utility script file:
+
+- vh_getcfg
+- vh_getdb
+- vh_install
+- vh_regnick
+- vh_restart
+- vh_runhub
+- vh_setup
+- vh_trigger
+- verlihub_config
+
+Some of these scripts was unusefull and others have been merged and optimized in <code>vh</code> script.
+
+Option --hub
+===============
+The option allows you to clean the database from unused variables from SetupList table:
+
+- **lang variables**: ban_reason ban_remaining ban_expired ban_for ban_permanently ban_type ban_removed ban_by ban_types_nickip ban_types_ip ban_types_nick ban_types_iprange ban_types_host1 ban_types_host2 ban_types_host3 ban_types_share ban_types_email ban_types_prefix ban_types_rhost1, timeout_key timeout_nick timeout_login timeout_myinfo timeout_flush timeout_setpass
+- **config variables**: tag_min_version_*  tag_max_version_* save_lang chat_msg_long chat_msg_lines pwd_cannot pwd_can pwd_min pwd_success pwd_set_error pwd_setup ip nick user host ip_range because op type not_in_userlist error success wrong_dc_tag tag_max_slots tag_min_slots tag_min_limit tag_min_ls_ratio tag_no_sock msg_downgrade msg_upgrade msg_topic_set msg_topic_reset autoreg_nick_prefix autoreg_already_reg autoreg_success autoreg_error timeout_any operation_timeout msg_chat_onoff msg_change_pwd msg_banned msg_hub_full msg_nick_prefix msg_downgrade msg_upgrade msg_replace_ban login_share_min login_share_max autoreg_min_share search_share_min ctm_share_min max_attempts_threshold
+
+It will also copy the new help files and make other stuff.

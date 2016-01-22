@@ -1,0 +1,130 @@
+You can install Verlihub in two different ways: [[from source|manual.installation#Installation_from_source]] or [[using binary package for your distribution|manual.installation#Installation_using_binary_package]].
+
+Installation from source
+==================
+
+Here you can find **step-by-step** procedure how to install Verlihub from source code.
+Extract the source
+------------------
+
+First of all, you need to get the source for VerliHub from the [home page](/ "download") of this site or from [Sourceforge.net](http://sourceforge.net/projects/verlihub/files "Sourceforge.net") hosting site. Download the file and save it in a folder of your file system (for example your home folder or /root).
+
+Then use the following command to extract all files:
+
+    tar zxvf verlihub-xxx.tar.gz
+
+where xxx indicates the selected version of Verlihub. This will extract the source in your own folder.
+
+Option **-z** will filter the archive through gzip, option **-x** will extract all files, option **-v** will list verbosely processed files and option **-f** will use specified archive file.
+
+
+Dependencies installation
+------------------
+There are some required libraries and programs that need to be installed before you attempt to compile Verlihub. Each Linux distribution has its own package management system and we provide base steps to install all dependencies with package management system.
+These are the required dependencies:
+
+- gcc >= 4.0 (use _gcc --version_ to get the version number) <span class="label label-info">Required</span>
+- make <span class="label label-info">Required</span>
+- cmake >= 2.6 <span class="label label-info">Required</span>
+- MySQL >= 5.0 <span class="label label-info">Required</span>
+- OpenSSL >= 0.9.8 <span class="label label-info">Required</span>
+- zlib <span class="label label-info">Required</span>
+- PCRE <span class="label label-info">Required</span>
+- GeoIP <span class="label label-info">Optional</span>
+- gettext <span class="label label-info">Required</span>
+- Lua >= 5.1 (for Lua plugin) <span class="label label-info">Optional</span>
+- Python >= 2.5 (for Python plugin) <span class="label label-info">Optional</span>
+
+Remember that some packages are **required** to compile Verlihub core. Other libraries are for plugins that get *compiled with the core*.
+
+In the following paragraphs it will explained how to install dependencies in Gentoo, Debian distributions and in CentOS. If you don't have one of the previous systems, you can use your favorite package manager or compile the libraries from source.
+
+### Gentoo
+On Gentoo you can use _Portage_ that is the official package management system. First you need to update the Portage package tree  before installing any packages:
+
+    emerge sync
+Then proceed with emerging these packages:
+
+    emerge -av cmake dev-db/mysql dev-libs/openssl sys-libs/zlib dev-libs/libpcre dev-libs/geoip sys-devel/gettext
+
+if you also want to install Lua and Python plugins use:
+
+    emerge -av dev-lang/lua dev-lang/python
+
+Note that some packages maybe already be installed on your system; don't worry you can exclude them for list or make Portage recompile them.
+
+You can now follow [[overlay manual|overlay]] to install Verlihub on Gentoo with _verlihub official overlay_.
+
+### Debian based distributions
+
+All distributions based on Debian use _apt_ as package management system. To install Verlihub dependences use:
+
+    apt-get install libpcre3-dev libssl-dev mysql-server libmysqlclient-dev mysql-client g++ libgeoip-dev gettext make cmake
+
+If you also want to install Lua and Python plugins use:
+
+    apt-get install python2.7-dev liblua5.2-dev
+
+### CentOS
+CentOS is a **RPM** based distribution and it uses use _yum_ as package management system. To install Verlihub dependences use:
+
+    yum install zlib openssl mysql-server >= 5.0 mysql >= 5.0 GeoIP gettext pcre cmake
+
+#### GeoIP (only if you don't have CentOS distributions)
+
+For other RPM based distribution like RedHat, you can download RPM packages from this link: [http://packages.sw.be/geoip/](http://packages.sw.be/geoip/ "GeoIP RPM"). Remember to choose the right package for your architecture and also to download the devel  package.
+
+To install them use:
+
+    rpm -ivh geoip-devel-xxx.rpm
+    rpm –ivh geoip-xxx.src.rpm
+
+In case your cannot find GeoIP for you RPM based distribution you can download the source from [here](http://geolite.maxmind.com/download/geoip/api/c/GeoIP.tar.gz "GeoIp source").
+
+To keep up to date GeoIP automatically please [[follow instructions on this page|how_to.geoip]].
+
+Preparing and compiling the source
+------------------
+
+Now that the prerequisites are installed, there should be no problems building the source. To build the source use:
+
+    cd /path/to/source/verlihub
+    mkdir build && cd build
+    cmake ..
+    make
+
+This could take some minutes to compile depending on the speed of your processor.
+Note that **all plugins** get compiled with Verlihub if their dependencies are satisfied. Anyway you can exclude plugin from compiling if you don't need them by using:
+
+    cmake -DWITH_<plugin_name>=OFF ..
+
+Installing Verlihub
+------------------
+
+If the compilation has completed successfully then install it as **super user** (root) using:
+
+    make install
+    ldconfig (required only if you get shared libraries not found error)
+
+If the compile did not complete successfully please ask a question from the [Git hub issues page](https://github.com/verlihub/verlihub-1.0.0/issues).
+
+> Do not start the hub yet because you need to setup the hub before the initial start-up.
+
+Installation using binary package
+==================
+
+Debian based distributions
+------------------
+
+For Debian you can download DEB package from [here](/download "Download Debian package"). Then in the shell type :
+
+    dpkg -i verlihub-xxx.deb
+
+RPM based distribution
+------------------
+
+You can download RPM package from [here](/download "Download RPM pacage"). Then use  _rpm_ command to install it:
+
+    rpm –ivh verlihub-xxx.rpm
+
+where xxx indicates the selected version of Verlihub. Now you can start [[configuring the your hub for the first time|manual.firstrun]] reading next chapter.

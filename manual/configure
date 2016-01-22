@@ -1,0 +1,410 @@
+Alter hub settings
+==================
+All VerliHub settings are stored in the MySQL database. To get the current configuration settings type in the hub use:
+
+    !getconfig
+
+or use the _short cut_ of the command:
+
+    !gc
+
+The command provides a list of config variable related to VerliHub and plugins in alphabetical order that you can edit while the hub is running.
+
+To show plugins variables only use:
+
+    !getconfig pluins
+
+or
+
+    !gc plugins
+
+
+Edit config variables
+------------------
+To change a value of a variable use:
+
+    !set <variable> <value>
+
+or
+
+    != <variable> <value>
+
+> Remember that some changes require to restart of the hub by using the command _!restart_.
+
+Click [[here|manual.variables]] to get a completed and detailed lists of all available variables.
+
+Edit plugin variables
+------------------
+Some plugins, like floodprot and replacer, use their own config variables. If you want to change the settings of a plugin, you should specify the name of the plugin to VerliHub when using the set command.
+
+The identifier of a plugin is:
+
+    pi_pluginname
+
+where _pluginname_ is the name of the plugin. For example the identifier of the plugin flootprot will be pi_floodprot.
+
+To change a config variable use:
+
+    !set [pi_pluginame] <variable> <value>
+
+or
+
+    !set pi_pluginname.<variable> <value>
+
+For example to change the value of variable _max\_conn\_per\_ip_ for floodprot plugin use:
+
+    !set [pi_floodprot] max_conn_per_ip 3
+
+or
+
+    !set pi_floodprot.max_conn_per_ip 3
+
+Basic Configuration
+===================
+There are a few components for the basic configuration of your hub. This section of the manual explains what and how to configure the base settings of the hub.
+
+Main hub information
+--------------------------
+You can change the hub information you have choose in the installation process:
+
+hub_name
+: The name of your hub
+
+listen_port
+: The port the hub listens on. Other hubs use port 411, but you need to run verlihub as root to do that. Default: 4111.
+
+hub_host
+: What people will use to connect to your hub. This is the hub address
+
+hub_desc
+: A description of your hub
+
+hub_category
+: Specify what type of hub you have i.e. movie. This variable is sent to the hublist
+
+hub_owner
+: The owner that runs the hub
+
+hub_icon_url
+: The URL for the hub icon (used by hublist services)
+
+You can also customize the name and description of OPChat and hub BOT changing the following variable:
+
+opchat_desc
+: This is the description of the OpChat bot
+
+opchat_name
+: This is the name of the OpChat bot
+
+hub_security
+: This is the name of the Hub Security bot
+
+hub_security_desc
+: This is the description of the Hub Security bot
+
+Hub topic
+------------------
+Topic is the argument of the hub and it is usually displayed in the title bar of the client. To set a topic in the hub use:
+
+    !topic This is my new topic
+
+This command will change the topic to "This is my new topic". By default only administrators can set the hub topic. If you wish to allow classes lower then admin (level 5) to set the topic, you can edit the _topic\_mod\_class_ config variable.
+
+If you restart the hub topic will be reset since it is store in the cache memory. You can also set hub topic **permanently** editing <code>hub_topic</code> variable.
+
+MOTD (Message of the Day)
+-------------------------
+The message of the day is also known as MOTD and it is shown to every members joining the hub. All you need to do is to edit a file called _motd_ in VerliHub config folder that you choose during the installation process. This file contains by default a message that you see when you run the hub for the first time.
+
+Verlihub allows you to show extra MOTDs based on user class. Here is a file list you can use:
+
+| File name  | Description|
+|-----------|------------|------------|
+|motd|All users can see this message|
+|motd_reg|The content of this file is shown _in addition_ to MOTD to registered users|
+|motd_vip|The content of this file is shown _in addition_ to motd_reg and MOTD to VIP users|
+|motd_op|The content of this file is shown _in addition_ to motd_vip, motd_reg and MOTD to Operators|
+|motd_cheef|The content of this file is shown _in addition_ to motd_op, motd_vip, motd_reg and MOTD to Cheef users|
+|motd_admin|The content of this file is shown _in addition_ to motd_cheef, motd_op, motd_vip, motd_reg and MOTD to Administrator|
+|motd_master|Master users see all previous MOTD messages and this one|
+
+Triggers for these additional MOTDs are already added in VerliHub and you only need to create the text file.
+
+FAQ
+------------------
+The FAQ (Frequently Asked Questions) is available to users using the +faq command in the hub chat window.
+Like the MOTD message, you need to edit the text file _faq_ in VerliHub configuration folder (for i.e. /etc/verlihub) and VerliHub automatically uses it.
+
+Hub Rules
+------------------
+The rules of the hub are available to users with the command **+rules**. This command shows the content of _rules_ file in the VerliHub configuration directory.
+VerliHub provides a default list of hub rules and you should edit them.
+
+
+
+User limits
+------------------
+VerliHub allows you to set rules to restrict access to users joining the hub. To set a limit on the maximum number of users in the hub use:
+
+    !set max_users <value>
+
+where &lt;value&gt; is a number specifying the maximum number of users.
+
+When the number of users in the hub reaches the limit set for max_users variable, no other user cannot join anymore in the hub, neither registered users, operator and admins. In some cases that limit can be too strict and VerliHub uses the following variables to allow more users in the hub depending on their class **even if the hub is full**:
+
+max_extra_regs
+: amount of registered users (class 1) allowed to join hub when it is full
+
+max_extra_vips
+: amount of extra VIPs (class 2) allowed to join hub when it is full
+
+max_extra_ops
+: amount of OPs (class 3) allowed to join hub when it is full
+
+max_extra_cheef
+: amount of Cheefs (class 4) allowed to join hub when it is full
+
+max_extra_admins
+: amount of Admins (class 5) allowed to join hub when it is full
+
+For example if you would like to have no registered members to join the hub when it is full, but you still want at least 5 operators and 5 administrators in the hub. Then set these values for the following variables:
+
+    !set max_extra_regs 0
+    !set max_extra_vips 5
+    !set max_extra_ops 5
+    !set max_extra_admins 5
+
+You can also adds limits for a specified time value with this command (only for Admin - class 5):
+
+    !ul <user_limit> <time_in_minutes>
+
+This command will change the <code>max_users</code> variable according to given limit. If time is not specified, it will be assumed 1 hour.
+
+> Please also read [[manual.configure#Increase_file_descriptor_limits|Increase file descriptor limits]].
+
+### User limit based on connection
+You can also control the amount of users based on IP or connection type (active/passive). You should edit these variables:
+
+max_users_from_ip
+: The maximum number of users (below class 2) that can enters in the hub with the same IP
+
+max_users_passive
+: The maximum number of passive users in the hub
+
+### Setting up a registered users hub only
+If you want to create a private hub where only registered users can join, you can set max_users variable to zero and change max\_extra\_* variables as you want. For example if you want to allow 100 registered users, use:
+
+    !set max_users 0
+    !set max_extra_regs 1000
+
+###  Nationalistic hub
+VerliHub can also restricts users from a specified country zones. To do this you need to configure two variables together:
+
+- **cc_zone#**: enter the countries for the # zone. The format is :XX:YY:ZZ:. It has to start and end with a colon, and all country capitalized codes (XX, YY, ZZ in the example) are separated by colons. There can be any number of codes (example codes: ':CZ:UK:US:SE:')
+- **max_users#**: represent the maximum number of users in zone #.
+
+Remember to replace # with a number from 1 to 3 (you can set a maximum of three zone). For example to restrict to US and Canada use:
+
+    !set cc_zone1 :CA:US:
+    !set max_users0 100
+
+Share Limit control
+------------------
+VerliHub allows you to specify some rules to control the minimum and maximum allowed share in the hub for a single user.
+
+The variables for share rules are:
+
+min_share
+: Minimum share for user from class 0 (registered users) to 3 (operator)
+
+min_share_reg
+: Minimum share for registered users only
+
+min_share_vip
+: Minimum share for VIP users only
+
+min_share_ops
+: Minimum share for operator users only
+
+max_share
+: Maximum share for user from class 0 to 3
+
+max_share_reg
+: Maximum share for registered users only
+
+max_share_vip
+: Maximum share for VIP users only
+
+max_share_ops
+: Maximum share for operator users only
+
+Like user limit variables,  you can also set different share levels depending on user classes. Please note that **share value** must be specified in in **kilobytes (KiB)**.
+
+For example to set a minimum share of 2 gigabytes for registered users, 1 gigabyte for VIPs and no share for operators, use:
+
+    !set min_share_reg 2048
+    !set min_share_vip 1024
+    !set min_share_ops 0
+
+To set a maximum share of 1000 gigabytes and a maximum share of 500 gigabytes for registered users, 1000 gigabytes for VIPs and 0 gigabytes for operator (forcing them not to share) use:
+
+    !set max_share 1024000
+    !set max_share_reg 5176000
+    !set max_share_vip 1024000
+    !set max_share_op 0
+
+You can also have the ability to hide the share of a registered users to everyone else in the hub. You can use this command to achieve it:
+
+    !regset <username> hide_share 1
+
+Use 1 to hide the share of the user and 0 to show again in. Please note that the user must reconnect to the hub in order the change to take effect.
+
+Hub/slot ratios & maximum hubs allowed in
+-----------------------------------------
+VerliHub allow you to restrict how many hubs your users are in and also a hub/slot ratio and it is possible to use two variables: _tag\_max\_hs\_ratio_ and _tag\_max\_hubs_.
+
+For example, if you want to restrict your users to be in 4 maximum hubs and have 1 slot per hub, use:
+
+    !set tag_max_hs_ratio 1
+    !set tag_max_hubs 4
+
+Search limits
+--------------
+You can limit search interval changes the value of <code>int_search</code> variable that represents the minimum number of seconds that user has to wait before being allowed to search again. You can customize this limit based on class of users. These are the variables you can edit:
+
+int_search_op
+: int_search for OPs
+
+int_search_pas
+: int_search for passive users
+
+int_search_reg
+: int_search for registered users
+
+int_search_reg_pass
+: int_search for registered passive users
+
+int_search_vip
+: int_search for VIPs
+
+You can change the following variables for a better hub performance:
+
+search_number
+: Number of search a user can do in the _int\_search_ interval. Default to 1
+
+max_passive_sr
+: Maximum number of search responses a passive user is allowed to recieve. This is useful for lag and bandwidth control since passive users totally rely on the hub to return search results
+
+Listening on more than one port
+-------------------------------
+VerliHub has the ability to listen on more than one port for incoming users, if you need to do this. For example to listen on port 1411, 8888 and 666 use this command:
+
+    !set extra_listen_ports 1411 8888 666
+
+> Remember to separate each port using space character
+
+Get hub information
+------------------
+You can retrieve hub/server information using two command:
+
+    !hubinfo
+
+and
+
+    !serverinfo
+
+The first will show you:
+
+- the version of hubsoft
+- the uptime
+- server frequency (see [[List of all config variables|manual.variables]] for a detailed explanation)
+- hub name, owner and category
+- online users, total share and users grouped in different status (active, passive, OP, etc.)
+- users in the CC and IP-range zones
+
+The second will show:
+
+- Used operative system (OS)
+- The uptime and load averages of the system
+- RAM status
+- Swap memory
+- Running processes
+
+Hub Help
+------------------
+In order to provide help to users, VerliHub has 7 different help files based on user classes, so each class has a help file associated with it.
+
+| Class  | User | Help file |
+|-----------|------------|------------|
+|0|Regular users|help_usr|
+|1|Registered users|help_reg|
+|2|VIP users|help_vip|
+|3|Operator user|help_op
+|4|Cheef user|help_cheef|
+|5|Admin user|help_admin|
+|10|Master user|help_master|
+
+All help files are located in the VerliHub configuration directory.
+
+For example the content of help file _help\_user_ is accessible to all regular user (with class 0) with the command **+help_user**; an Operator (with class 3) can grab the content of _help\_op_ file with command **+help_op** and so on.
+
+However VerliHub provides an easy command to access to help files to all users: **+help**. Remember that +help command works like +motd: for example an Operator will see all commands available for default user, registered users and VIP.
+
+Advanced configuration
+==================
+Language support
+------------------
+You can use VerliHub in your own language, if available, using the PO/MO files support. If you already set a locale on you system (for example de_DE) VerliHub automatically translate the messages in this language. Otherwise you can simply set the _locale_ variable in dbconfig file of your hub. All you need to do is add:
+
+    locale = <country_code>
+
+You can go to [this page](http://www.transifex.net/languages/ "Locale code") to get a list of all locales. Verlihub will then use the specified language when the hub is restarted.
+
+> If your language is not translated yet you can contribute to the project starting a translation from [Transfiex plataform](https://www.transifex.com/projects/p/verlihub-100/ "Transfiex plataform").
+
+Hublist support
+--------------------
+There are some variables of the hub configuration that are sent to hublist pinger when it enters in the hub. These are:
+
+- **hub_name**: the name of the hub
+- **hub_desc**: the description of the hub
+- **hub_category**: the category of the hub (this is only used  by [dchublist pinger](http://www.dchublist.com "dchublist pinger"))
+- **hub_host**: the address and port of the hub (you can omit 411 default port if you want)
+- **min_share**: minimum value of share that user must have to join
+- **min_slot**: minimum value of slot that user must have to join
+- **max_hubs**: maximum number of allowed hubs
+- **hub_owner**: the owner if the hub
+
+VerliHub has also a very simple hublist registering support for those hublists that have a registration server.
+Use the following variables to setup hublist registration:
+
+- **hublist_host**: a list of hublist registering host separated by space
+- **hublist_port**: the port of the registration server (port 2501 is the default one)
+
+You can manually register the hub by using the following command:
+
+    !hublist
+
+VerliHub is also capable of automatically register the hub every each interval of time. The variable **timer_hublist_period** specify the time in seconds that VerliHub should wait to between two hublists registrations. For example if you want to register your hub every 10 minutes use:
+
+    !set timer_hublist_period 600
+
+Automatic registration is disabled by default. If you would like to disable it again use the value 0.
+
+Flood protection
+------------------
+VerliHub has some parameters that allow you to protect the hub and the mainchat from flooding. There must be some compromise between heavy restrictions and the possibility to chat. There are several hub variables that can help prevent mass flooding and abuse of mainchat:
+
+- **max_chat_msg**: can determine the maximum length of a message allowed to be sent to mainchat (default is 256 characters long)
+- **max_chat_lines**: can determine the maximum number of lines that can be sent to mainchat (default is 5)
+- **mainchat_class**: can lock the main chat to a specified class of user
+
+If you have active bots that are frequently kicking users and you may want to hide the kicking messages that constantly spam your main chat, use _hide_/all_/kicks_ to do this; 1 hides all kick messages, 0 shows messages. For example:
+
+    !set hide_all_kicks 1
+
+Another possibility for muting kick messages is using commands _!hidekick_ and _!unhidekick_ which will kick user without displaying the message
+
+Increase file descriptor limits
+------------------
+TODO

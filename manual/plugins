@@ -1,0 +1,401 @@
+VerliHub provides some plugins that extend the core with new features like IP logging, chatroom, LUA language support and so on. In this part of the guide it will be display how to add, disable and enable plugins and commands of each extension.
+
+
+ Manage plugins using common commands
+==================
+You can manage plugins in VerliHub using four simple commands: _pluglist all_, _plugin_, _plugout_ and _plugreload_. Each command can be used in main chat window and as private message in hub bot. Here there is the explanation on how to use them:
+
+!pluglist all
+:  List all loaded plugins
+
+!plugin &lt;plugin_filename.so&gt;
+:  After you have compiled a plugin, you can use this command to load it. You need to specify the name of the plugin with its extension (.so). You can find all plugins in _/usr/local/bin_ depending on installation prefix. For example to load hublist plugin use !plugin /usr/local/lib/libhublink_pi.so
+
+!plugout &lt;plugin_name&gt;
+:  Unload a plugin use. You need to specify the plugin name that is available using the _!pluglist all_ command. Remember not to include the plugin version
+
+!plugreload &lt;plugin_name&gt;
+:  Reload a plugin. Use always the plugin name
+
+Manage plugins with plugman
+===========================
+
+It is available a extension called _plugman_ (plugins manager) that allows you to list plugins and turn them on and off. This is the preferred way to manipulate the plugins. The Plugin Manager is compiled with VerliHub core and it is loaded automatically when you start VerliHub. If the plugin is not loaded you can use:
+
+    !plugin libplug_pi.so
+
+The Plugin Manager commands are:
+
+!lstplug
+: List the registered plugins
+
+!addplug &lt;nick&gt; -p &lt;path&gt; [-d desc] -a &lt;autoload (0/1)&gt;
+: Register new plugin. Nick is a short plugin nickname, path is a relative or absolute path to the plugin's binary, desc is an optional description and autoload set to 1 means that plugin will start with hubsoft
+
+!delplug &lt;nick&gt;
+: Unregisters the plugin
+
+!onplug &lt;nick&gt;
+: Turns the plugin on
+
+!offplug &lt;nick&gt;
+: Turns the plugin off
+
+!replug &lt;nick&gt;
+: Reloads the plugin, turning it off then on
+
+Start plugin automatically
+==================
+Every time you restart VerliHub only plugman will be loaded. You can automatically load your favorite plugins creating symbolic link in hub config folder. For example to auto-load _lua_ use:
+
+    ln -s <path_to_lib>/liblua_pi.so <path_to_config>/plugins/
+
+where <path_to_lib> is location where plugins have been installed (usually /usr/local/lib) and <path_to_config> where is located dbconfig file (for example /etc/verlihub/).
+
+You can also use [[vh script|utility.vh#Option--autoload]] to perform same actions but in easy way.
+
+
+Available plugins
+=================
+Plugins will be automatically compiled with VerliHub core (if their dependencies are satisfied) unless you excluded it during installation. There are various plugins available for Verlihub:
+
+- **plugman**: this is the plugin manager for Verlihub
+- **lua**: this allows you to use simple scripts written in LUA language ([http://www.lua.org](http://www.lua.org "http://www.lua.org"))
+- **python**: this allows you to use scripts written with Python ([http://www.python.org](http://www.python.org "http://www.python.org"))
+- **forbid**: this plugin allows you to filter main chat and private messages with forbidden words
+- **replacer**: this plugin replaces given patterns in text. For example if someone types Windows in the main chat, you can have this plugin change it to Winblows
+- **floodprot**: this plugin offers more control from users flooding the hub
+- **stats**: this periodically saves statistics in the database (i.e. users, share, upload, searching, etc...)
+- **messanger**: this plugin is used to send messages to offline users
+- **iplog**: this logs IP addresses as users join and leave the hub
+- **chatroom**: this will set up individual chatrooms for users. This would work similarly to OPChat. This is great if you have a multiple-language hub
+- **isp**: this plugin allows you to check connection types, nickname prefixes, and minimum shares, among other things
+- **pisg**: this plugin allows you to create log file to be used with _pisg_ that is a statistics generator. You can see generated graphs about  daily actitity, most active times, most active nicks and so on ([http://pisg.sourceforge.net/](http://pisg.sourceforge.net/ "http://pisg.sourceforge.net/"))
+
+> Some plugins will add new variables that you can see with _!getconfig plugins_ command. See [[Configure the hub|manual.configure]] chapter for more information.
+
+LUA
+------------------
+These commands are available after the LUA plugin is loaded:
+
+!lualist
+: Lists loaded LUA scripts
+
+!luaload &lt;script&gt;
+: Loads specified LUA script using relative path to VerliHub config folder
+
+!luaunload &lt;script / ID&gt;
+: Unloads specified LUA script using relative path to VerliHub config folder or script ID as proposed with lualist command
+
+!luareload &lt;script / ID&gt;
+: Reload a script, instead of using !luaunload and then !luaload or script ID as proposed with lualist command
+
+!lualog &lt;enable (0/1)&gt;
+: Enable or disable LUA debug when you load a new script
+
+!luainfo
+: Show information about running scripts
+
+!luaversion
+: Show information about LUA library
+
+If the script contains errors plugin will not load it and alert you where error is. To enable LUA logging use:
+
+    !lualog 1
+
+> To load automatically LUA scripts at every hub (re)start put them in hub config folder (where it is located dbconf file)
+
+You can find a collection of usufull LUA scripts in the specific [GIT repository](https://github.com/VerliHub/lua_scripts) located on Github site.
+
+Python
+------------------
+This plugin allow you to use Python script using VerliHub API. These commands are available after the LUA plugin is loaded:
+
+!pylist
+: Lists loaded Python scripts
+
+!pyload &lt;script&gt;
+: Loads specified Python script using relative path to VerliHub config folder
+
+!pyunload &lt;script / ID&gt;
+: Unloads specified Python script using relative path to VerliHub config folder or script ID as proposed with lualist command
+
+!pyreload &lt;script / ID&gt;
+: Reload a script, instead of using !pyunload and then !pyload or script ID as proposed with lualist command
+
+!pylog &lt;enable (0/1)&gt;
+: Enable or disable Python debug when you load a new script
+
+
+Forbid
+------------------
+Forbid plugin allow you to filter both main chat and both private messages that contains forbidden words. These commands are available after loading the forbid plugin:
+
+!lstforbid
+: Lists forbidden patterns
+
+!addforbid &lt;pattern&gt; [-C &lt;max_class&gt;] [-f &lt;flags&gt;] [-r &lt;kick_reason&gt;]
+: Adds a forbidden pattern. See below the table for more information regarding the parameters
+
+!modforbid &lt;pattern&gt;
+: Modifies forbidden pattern. See below the table for more information regarding the parameters
+
+!delforbid &lt;pattern&gt;
+: Deletes forbidden pattern
+
+Here there is a explanation of command parameters:
+
+- **-C &lt;max_class&gt;**: using the -C option you can specify the classes to ignore filtering. Set to 1 to ignore registered users and up
+- **-f &lt;flags&gt;**:  you can specify which chats are screened and whether or not a report is sent to OPChat when a rule is broken. See _flags_ paragraph
+- **-r &lt;kick_reason&gt;**: you can specify a kick reason, enclose this in quotation marks.
+
+### Flags
+| Value  | Explanation|
+|-----------|------------|------------|
+|1|Control public chat|
+|2|Control private messages|
+|4|Notify in OPChat when a rule is broken|
+
+If you want to use more than one flag just sum them
+
+Plugins will add these variables:
+
+- **max_class_dest**
+- **max_repeat_char**: maximum number of repeated characters in the string
+- **max_upcase_percent**: percentage of uppercase word in the message
+
+To change this value please refers to [[Change plugin variable|manual.configure#Edit_plugin_variables]] paragraph.
+
+### Forbid as anti-spam utility
+You can use this plugin as anti-spam utility. For example to allow some e-mail addresses in main chat use:
+
+	!addforbid (?<!google|@hotmail|etc|etc)(.com|.net|.org|etc|etc) -f 1
+
+in this case the first set of brackets with **? &lt;!**. Or to ban IP addresses:
+
+	!addforbid b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)b -f 7 -C 0 -r "Kick message _2h"
+
+Other usefull expressions are listed below.
+
+rncrnornm|.rnnrnernt|.rnornrrng|.rnernu|.rnrrno|.rnnrnorn-rnirnp
+: This expression will catch this type of spam:
+
+		m
+		y
+		s
+		i
+		t
+		e
+		.
+		c
+		o
+		m
+
+.s+cs+os+m|.s+ns+es+t|.s+os+rs+g|.s+es+u|.s+rs+o|.s+ns+os+-s+is+p|.s+is+ns+fs+o
+: This regex line will stop spam like this
+
+		. c o m
+		.  c  o  m
+
+ The spammer can add as many spaces as they want and that regex will catch it. This will stop .com .net .org .eu .ro .no-ip but much more can be added.
+ If you replace the "+" with "*" it will detect 0 or more spaces. The "+" detects 1 or more and in this way the expression will also catch the addresses without spaces characters.
+
+(([a-zA-Z0-9]{3,15}[-._][a-zA-Z0-9]{3,15}([.-_])([a-zA-Z0-9]{3,15}|[A-Za-z]{2,3})(([.-_])([a-zA-Z0-9]{3,15}|[A-Za-z]{2,3}))?(/)?:[0-9]{1,5})|(dchub://|adc://|adcs://)[a-zA-Z0-9]{3,15}([.-_])([a-zA-Z0-9]{3,15}|[A-Za-z]{2,3})(([.-_])([a-zA-Z0-9]{3,15}|[A-Za-z]{2,3}))?(/)?(:[0-9]{1,5}$)?)
+: This expression is valid to ban all addresses.
+
+((http|HTTP)(s|S)?://|((w){3}|(W){3}).)[a-zA-Z0-9-]{3,15}([.-_])([a-zA-Z0-9]{3,15}|[A-Za-z]{2,3})(([.-_])([a-zA-Z0-9]{3,15}|[A-Za-z]{2,3}))?(/)?
+: This expression is valid to catch web addresses.
+
+b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)b(:[0-9]{1,5}$)?
+: This expression is valid to catch IP addresses only.
+
+\b\w{1,15}@\w{1,15}(\.\w{1,15})?\.[A-Za-z]{2,4}\b
+: This expression is valid to ban all e-mail addresses.
+
+Replacer
+---------------
+This plugin replaces given patterns in text. These commands are available after loading the replacer plugin:
+
+!getreplacer
+: Lists words to replace
+
+!addreplacer &lt;word&gt; &lt;replacement word&gt; &lt;level of immunity&gt;
+: Adds a word replacement. You can specify level of immunity so user with class equal or bigger than to given value will be immune to the word replacement
+
+!delreplacer &lt;word&gt;
+: Removes an entry
+
+Floodprot
+------------------
+Floodprot offers protection against flooders. The plugin does not provide any commands but it will add three new configuration variables:
+
+- **max_conn_per_ip**: represents the maximum number of connection per IP. Set to 1 to allow one IP per user
+- **max_users_per_ip**:  represents the maximum number of users per IP. Set to 1 to allow one IP per user
+- **bantime_on_flood**: number of seconds to ban the flooder
+
+To change this value please refers to [[Change plugin variable|manual.configure#Edit_plugin_variables]] paragraph.
+
+Stats
+------------------
+No command is available for this plugin. Plugins periodically saves statistics in the database (i.e. users, share, upload, searching, etc...)
+Plugins save this data:
+
+- uptime
+- number users in hub
+- users in each zone
+- total share in GB
+- total hub's upload (sent bytes, not real traffic)
+- upload per each zone
+- mean frequency of various actions
+- active search
+- passive search
+- logins
+- logouts
+
+One of the best features of the stats plugin, is that the statistics it generates can be utililized by tools such as [MRTG](http://oss.oetiker.ch/mrtg/ "MRTG") and [RRDTOOL](http://oss.oetiker.ch/rrdtool/ "RRDTOOL"). MRTG is a program that generates graphs based on inputs from an external source. This allows you to view nice graphical statistics for your hub from a web page. RRDTOOL has similar functionality, but it only gathers and processes the data. You will also need a wrapper to capture the rrds generated by the program and display the graphs. RRDTOOL is also considerably faster and it is more advanced. It is recommended, that users without experience, use MRTG.
+
+Messenger
+------------------
+With messenger you can send messages to offline users. These commands are available after loading the messanger plugin:
+
++msgsend &lt;nick&gt; &lt;topic/subject&gt; &lt;message text&gt;
+: Sends a message to given nickname and will be displayed next time they log in
+
+
++msgip &lt;ip&gt; &lt;topic/subject&gt; &lt;message text&gt;
+: Sends a message to IP and will be displayed next time they log in
+
+
+> It is a good idea to send the message to a registered nickname not to send message to a guest user with given nickname
+
+IPLog
+------------------
+With this plugin you can log any IPs of users. These commands are available after loading the IPLog plugin:
+
+!lastip &lt;nick&gt; [ &lt;limit=10&gt;]
+: Shows last IP addresses for given nickname
+
+!lastnick &lt;ip&gt; [ &lt;limit=10&gt;]
+: Shows the last nicknames used by the given IP address
+
+!iplog &lt;ip&gt;
+: Shows log history for given IP address
+
+!nicklog &lt;nick&gt;
+: Show log history for given nickname
+
+Chatroom
+------------------
+There are two sets of commands for the chatroom plugin; the first set it used to create, edit and delete rooms and the second one is used to invite users or revoke invitation.
+
+The commands to manipulate the chatrooms are:
+
+!lstroom
+: Lists all available chatrooms
+
+!addroom &lt;nick&gt; [-CC &lt;country code&gt;] [-ac &lt;min_auto_class&gt;][-AC &lt;max_auto_class&gt;][-c &lt;min_class&gt;][-t &lt;topic&gt;]
+: Create a chatroom named nick. When specifying the nickname, make sure to respect nickname rules.  See below the table for more information regarding the parameters
+
+!delroom &lt;nick&gt;
+: Removes specified chat room
+
+Here there is a explanation of command parameters:
+
+- **-CC &lt;country code&gt;**: you can specify a country code for chatroom to create country specific room. This is a good idea if you a multi language hub. Only users with that county code can enter in the room.
+- **-ac &lt;min_auto_class&gt;**: chatroom will be automatically open for users with class greater than given value
+- **-AC &lt;max_auto_class&gt;**: chatroom will be automatically open for users with class less than given value
+- **-c &lt;min_class&gt;**: this is the minimum class to use the chatroom
+- **-t &lt;topic&gt;**: this the topic of the chat
+
+The commands to manage the users in the chatrooms are:
+
++invite &lt;online_users_nick&gt; &lt;invite message&gt;
+: Invites a person into the chatroom with an optional invitation message
+
++leave
+: User can use this command to leave the room; no messages from the chatroom will be received
+
+
++out &lt;nick&gt;
+: Excludes a user from the chatroom. This command is different from the previous one because can be used by OP to exclude a user from the room
+
+
+The plugin will add new variables:
+
+- **pi_chatroom.min_class_add**: minimum class to add a new room
+- **pi_chatroom.min_class_del**: minimum class to delete a room
+- **pi_chatroom.min_class_lst**: minimum class to get list of all rooms
+- **pi_chatroom.min_class_mod**: minimum class to edit a room
+
+To change this value please refers to [[Change plugin variable|manual.configure#Edit_plugin_variables]] paragraph.
+
+ISP
+------------------
+This plugin allows you to check connection types, nickname prefixes, and minimum shares, among other things. These commands are
+available after loading the IPLog plugin:
+
+!lstisp
+: Give a list of ISPs
+
+!addisp &lt;iprange&gt; &lt;other_parameters&gt;
+: Add new ISP. See below the table for more information regarding the parameters
+:
+!modisp &lt;iprange&gt; &lt;other_parameters&gt;
+: Edit existing ISP. See below the table for more information regarding the parameters
+
+!delisp &lt;ipmin/iprange&gt;
+: Deletes the given ISP. See below the table for more information regarding the parameters
+
+Here there is a explanation of command parameters:
+
+- **-N &lt;name&gt;**: a descriptive field used to indicate to other OPs what entry do
+- **-CC &lt;country_codes&gt;**:  a comma separated list of ISO standard country codes (VerliHub uses GeoIP to recognize CC from IP)
+- **-n &lt;nick_pattern&gt;**: a regex pattern that nick must match; empty to disable. Inserting %[CC] into the regex will replace this by user CC. For example use _\[BBB\]_ to match [BBB] anywhere in the nick or _^\[BBB\]_ to match [BBB] on the beginning of the nick and
+_^[A-Z0-9\_].*_ to match nick that stars with number, letters or underscore
+- **-d &lt;desc_tag&gt;**:  this text is inserted into the users description; empty to disable. It may also contain %[CC]
+- **-c &lt;conn_type&gt;**: determines what connetion users should have (case insensitive), empty to disable. You can use also regex, for example _(Modem|[\d\.]+Kbps)_ would be for all modem types, _^.LAN...._ would be for LAN and _.*_ for anything
+- **-g &lt;share_guest&gt;**: minimum share value in GiB for guest users in gigabytes, -1 to disable or use natural number
+- **-r &lt;share_reg&gt;**: minimum share value in GiB for registered users in gigabytes, -1 to disable or use natural number
+- **-v &lt;share_vip&gt;**: minimum share value in GiB for VIP users in gigabytes, -1 to disable or use natural number
+- **-o &lt;share_op&gt;**: minimum share value in GiB for OPs in gigabytes, -1 to disable or use natural number
+- **-G &lt;max_share_guest&gt;**: maximum share value in GiB for guest users in gigabytes, -1 to disable or use natural number
+- **-R &lt;max_share_reg&gt;**: maximum share value in GiB for registered users in gigabytes, -1 to disable or use natural number
+- **-V &lt;max_share_vip&gt;**: maximum share value in GiB for VIP users in gigabytes, -1 to disable or use natural number
+- **-O &lt;max_share_op&gt;**: maximum share value in GiB for OPs in gigabytes, -1 to disable or use natural number
+- **-mn &lt;nick error message&gt;**:  the message which should appear to user when he has wrong nick. You can use %[nick], %[pattern]  or %[CC]
+- **-mc &lt;conn error message&gt;**: the message which should appear to user when he has wrong connection type. You can use %[pattern] substring
+
+
+> When **minshare** is lower then hub's settings it won't work, so you will need to set min_share to lower limit
+
+### Examples
+If you want to add user contry code before description, you can use this command:
+
+    !addisp 0.0.0.0..0.0.0.0 -N"ALL" -d"<%[CC]>"
+
+this will add rules for all IPs
+
+### Config variables
+The plugin also add new configuration variables:
+
+- **max_check_nick_class**: maximum class of user to check nickname
+- **max_check_isp_class**: maximum class of user to check ISP
+- **max_check_conn_class**: maximum class of user to check connection
+- **max_insert_desc_class**: maximum class of user that plugin should replace description
+- **unit_min_share_bytes**: TO BE REMOVED
+- **unit_max_share_bytes**: TO BE REMOVED
+- **msg_share_more**: message to send if user has a share more than set value for the ISP
+- **msg_share_less**: message to send if user has a share less than set value for the ISP
+- **msg_no_isp**: message to send if user ISP is not allowed
+- **allow_all_connections**: allow all connections from ISP. Set to 1 to allow, 0 to disable
+- **case_sensitive_nick_pattern**: math nick pattern with case sensitive. Set 1 to enable, 0 to disable
+
+To change this value please refers to [[Change plugin variable|manual.configure#Edit_plugin_variables]] paragraph.
+
+> To get a full list of ISP you can use [Maxmind GeoIP ISP](http://www.maxmind.com/app/isp "Maxmind GeoIP ISP") (license needed).
+
+Pisg
+------------------
+pisg (Perl IRC Statistics Generator) is a Perl script which takes IRC/DC++ logfiles and turns them into nice looking stats, which can be shown to users of your hub. The plugin automatically generate log files from main chat and put it in hub config folder as _pisg.log_. For more information on how to generate statistics, please read [[vh_pisg utility script|utility.vh_pisg]] page.
+
+> This plugin has <span class="label label-warning">not been</span> implemented yet

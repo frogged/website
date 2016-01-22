@@ -1,0 +1,243 @@
+Kick a user
+==================
+You can kick a users temporarily from the hub, so user will not be able to rejoin until a number of seconds will expire. This time is set in _tban_kick_ variable in the hub configuration and default value is set to 5 minutes (600 seconds). You can kick someone using:
+
+    !kick <nick> <reason>
+
+where <nick> is the nickname in user list and <reason> it's a message to tell him why he was moved away from the hub. For example to kick 'Mario' because he isn't sharing forbidden files use:
+
+    !kick Mario You are sharing forbidden file. Please read rules next time!
+
+In this way all users of the hub will see the kick in the message bar of the client. If you don't want a public kick message to show in the chat window, use
+
+    !hidekick <nickname1> <nickname2> ...
+
+With this command you specify a user or a list of nicknames (separated with space) and feature will be enable until you restart the hub or use:
+
+    !unhidekick <nickname1> <nickname2> ...
+
+Alternatively you can also set the configuration variable <code>hide_all_kicks</code> to 1 to hide all kick message.
+
+> You can change the duration of the kick altering <code>tban_kick</code> value that represents the length of time (in seconds) people must wait to rejoin. Default to 300 seconds
+
+Drop
+==================
+You can disconnect a user without kicking or banning him using:
+
+    !drop <nickname>
+
+you don't need to provide a reason.
+
+Bans
+==================
+There are various ways to ban users from the hub. They are shown below.
+
+Temporarily banning a user
+------------------
+You can temporarily bans a nickname or IP. You can do it specifying with ban command the time units that are available to you. They are illustrated in this table:
+
+| Time unit  | Abbreviation |
+|-----------|------------|------------|
+|Second|s|
+|Minute|m|
+|Hour|h|
+|Day|d|
+|Week|w|
+|Month|M|
+|Year|y|
+
+So just append the time unit after any of the ban commands, with an underscore seperating them. For example, to temporarily ban someone for 2 weeks, use:
+
+    !ban_2w Mario You have been temporarily banned because of share!!
+
+You can append _time at the end of **ALL** ban commands that will be explained next. You can also append _time in the ban reason if you want and VerliHub will perform the same trick.
+
+> You can also set the maximum length of time (in seconds) an OP can ban someone for. Just change the <code>tban_max</code> variable
+
+Ban nickname
+---------------------
+To ban a nickname there are two commands. You can use:
+
+    !bannick <nick> <reason>
+
+or
+
+    !ban <nick> <reason>
+
+To ban the user temporarily use the same trick as described in [[Temporarily banning a user|manual.kick-ban#Temporarily_banning_a_user]].
+
+If you want to ban the IP of a user you just kicked and remember only the nickname use:
+
+    !banip this nick <nick> <reason>
+
+And VerliHub will ban for you the IP.
+
+Wrong password ban
+------------------
+You can specify the ban time in minutes if registered user provides a wrong password changing the <code>pwd_tmpban</code> variable.
+
+Advanced ban methods
+==================
+
+Ban a IP
+------------------
+There are two commands to ban an IP address. The first is
+
+    !ban <ip> <reason>
+
+and the second is
+
+    !banip <ip> <reason>
+
+These commands perform the same action and will ban IP permanently, it does not matter which one you use.
+
+To ban IP temporarily use the same trick as described in [[Temporarily banning a user|manual.kick-ban#Temporarily_banning_a_user]].
+
+Banning a range of IP addresses
+------------------
+There are two ways to ban a range of IP addresses. The first way is to specify a range of IP addresses to ban using:
+
+    !banrange <ipmin>..<ipmax> <reason>
+
+The second way is to ban the subnet. To do this you can specify the IP and the subnet mask to ban, using the command
+
+    !banrange <ip>/<left_mask_bits> <reason>
+
+Ban IP and nickname at same time
+--------------------------------
+You can ban IP and nickname at same time using kick command. Simply add \_BAN\_ in the kick reason. For example to ban Mario permanently for sharing forbidden files use:
+
+    !kick Mario You are sharing forbidden file. Please read rules next time!_BAN_
+
+You can also temporarily ban a user by appending  to \_BAN\_ the time ban with the time unit. For example for a 2 day ban you should
+use:
+
+    !kick Mario You are sharing forbidden file. Please read rules next time!_BAN_2d.
+
+Refers to [[Temporarily banning a user|manual.kick-ban#Temporarily_banning_a_user]] to see available time units.
+
+Ban a hostname
+------------------
+In order to ban a hostname you need to configure _dns\_lookup_ variable. Please check [[List of variables|manual.variables]] page for a full explanation of config var. To understand the commands you need to know that DNS address is composed of different level. For example:
+
+    someuglynumbers.provider.whatever.com
+
+- **.com** represents the first level  of the hostname
+- **whatever.com** represents the second level
+- **provider.whatever.com** represents the third level
+
+Commands are summarized in this table:
+
+!banhost1 &lt;hostname&gt; &lt;reason&gt;
+: This will ban the first level of the given DNS (in the example .com)
+
+!banhost2 &lt;hostname&gt; &lt;reason&gt;
+: This will ban the second level of the given DNS (in the example whatever.com)
+
+!banhost3 &lt;hostname&gt; &lt;reason&gt;
+: This will ban the third level of the given DNS (in the example, provider.whatever.com)
+
+!banhostr1 &lt;hostname&gt; &lt;reason&gt;
+:  Bans the leftmost part of the hostname (in the example "someuglynumbers")
+
+
+> Remember that if you have a slow DNS server this can slow down the hub (if you enable dns_lookup)
+
+Ban a nick prefix
+------------------
+To ban a nickname prefix, use the command:
+
+    !banprefix <nick_prefix> <reason>
+
+> This will affect the performance of users joining the hub, the more prefixes you ban the slower it will be
+
+Ban share size
+------------------
+To ban a share size, use the command:
+
+    !banshare <exact_share_size_in_bytes> <reason>
+
+Getting information on bans
+===========================
+
+If you want to get information about a ban, there is this command:
+
+    !infoban <nick_or_ip_or_whatever>
+
+This method will try to list all possible matches for what you entered as keyword. If you want to search a specific type of ban you
+can use these three commands:
+
+    !infobannnick <nick>
+    !infobanip <ip>
+    !infobanrange <any_ip_in_the_range>
+
+To see all latest bans use:
+
+    !lsban <limit>
+
+where <limit> is the maximum number of results you want to display
+
+You can show all current bans with these three commands:
+
+!infoban\_ipban\_
+: Shows all current IP bans
+
+!infoban\_nickban\_
+: Shows all current nickbans
+
+!infoban\_banrange\_
+: Shows all current banned ranges. Very good for showing the ranges you might have forgotten you banned
+
+Remove a ban
+============
+
+When you remove a ban you need to provide a reason, even a dot "." is allowed. The unbans are stored in database, and operators can view them. This is a list of the various unban commands:
+
+
+!unban &lt;ip\_or\_nick&gt; &lt;unban\_reason&gt;
+: Standard method for removing bans
+
+!unbanip &lt;ip&gt; &lt;unban\_reason&gt;
+: Will remove only existing bans for IP
+
+!unbannick &lt;nick&gt; &lt;unban\_reason&gt;
+: Removes nickname bans
+
+!unbanhost1 &lt;hostname&gt; &lt;unban\_reason&gt;
+: Removes a first level hostname ban
+
+!unbanhost2 &lt;hostname&gt; &lt;unban\_reason&gt;
+: Removes a second level hostname ban
+
+!unbanhost3 &lt;hostname&gt; &lt;unban\_reason&gt;
+: Removes a third level hostname ban
+
+!unbanhostr1 &lt;hostname&gt; &lt;unban\_reason&gt;
+: Removes the leftmost part of a hostname ban
+
+!unbanprefix &lt;prefix&gt; &lt;unban\_reason&gt;
+: Removes a nickname prefix ban
+
+!unbanshare &lt;exact\_share\_in\_bytes&gt; &lt;unban\_reason&gt;
+: Removes a share size ban
+
+!unbanrange &lt;low IP value&gt;..&lt;high IP value&gt; &lt;unban\_reason&gt;
+: Removes a range of IP bans
+
+!unban \_nickban\_ &lt;reason&gt;
+: Removes ALL current nickbans
+
+!unban \_ipban\_ &lt;reason&gt;
+: Removes ALL current ipbans
+
+!unban \_shareban\_ &lt;reason&gt;
+: Removes ALL current sharebans
+
+!unban \_rangeban\_ &lt;reason&gt;
+: Removes ALL current rangebans
+
+!unban \_tempban\_ &lt;reason&gt;
+: Removes ALL current tempbans
+
+!unban \_hostban\_ &lt;reason&gt;
+: Removes ALL current hostbans

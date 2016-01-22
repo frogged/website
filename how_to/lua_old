@@ -1,0 +1,23 @@
+~NOTOC~
+If you have installed Lua 5.0.x library from source, current Makefile does not support uninstall target; that means you can't uninstall it automactly  by typing:
+
+    make uninstall
+
+
+Suppose Lua library is installed in default location (/usr/local), the following files are installed:
+
+> ./bin/lua (the interpreter)
+
+> ./bin/luac (the compiler)
+
+> liblua.a and liblualib.a in ./lib (the libraries)
+
+> lua.h and lualib.h in ./include. (include files)
+
+To remove them type (as root):
+
+    cd /usr/local
+
+    rm bin/lua bin/luac lib/liblua.a lib/liblualib.a include/lua.h include/lualib.h
+
+And it's done. Now you can upgrade to Lua 5.1.x library if you want.

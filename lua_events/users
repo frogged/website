@@ -1,0 +1,93 @@
+~NOTOC~
+VH_OnNewReg
+-----------
+This method is called when a new user is registered. It returns the <code>op</code> who made the registration, the registered <code>nick</code> with given <code>class</code>.  For example:
+
+        function VH_OnNewReg (nick, class, op)
+            if nick == 'Mario' then
+                 VH:SendToOpChat('Mario has just registered "' .. nick ..'" with class ' .. class);
+            end
+            return 1;
+        end
+
+**Input parameters:** **1=** nick, **2=** class, **3=** op  
+
+VH_OnDelReg
+-----------
+This method is called when a OP delete a user. It returns the <code>op</code> who made the action, the deleted <code>nick</code> with given <code>class</code>.  For example:
+
+        function VH_OnDelReg (nick, class, op)
+            if nick == 'Mario' and class == 5 then
+                 VH:SendToOpChat('Ask Mario why he just deleted "' .. nick ..'" with class ' .. class);
+            end
+            return 1;
+        end
+
+**Input parameters:** **1=** nick, **2=** class, **3=** op
+
+VH_OnUpdateClass
+-----------
+This method is called when user' class is changed. It returns the <code>op</code> who made the action, the <code>nick</code> with <code>old_class</code> and <code>new_class</code>.  For example:
+
+        function VH_OnUpdateClass (op, nick, old_class, new_class)
+            if nick == 'Mario' and (old_class < new_class) then
+                 VH:SendToOpChat('Mario has just promoted "' .. nick ..'" to class ' .. class);
+            end
+            return 1;
+        end
+
+**Input parameters:** **1=** nick, **2=** old_class, **3=** new_class, **4=** op
+
+VH_OnNewConn
+------------------
+This method is called when there is a new incoming connection.. It returns the user's <code>ip</code>.  For example:
+
+        function VH_OnNewConn (ip)
+            if ip == '127.0.0.1' then
+                 VH:SendToOpChat('A new connection has just started with local IP: ' .. ip);
+            end
+            return 1;
+        end
+
+**Input parameters:** **1=** ip
+
+VH_OnCloseConn
+------------------
+This method is called when a new user with <code>nick</code> starts to log out. It returns the user's <code>ip</code>.  For example:
+
+        function VH_OnCloseConn (ip, nick)
+            if ip == '127.0.0.1' then
+                 VH:SendToOpChat('A new user has just started to log out with a local IP: ' .. ip .. ' and nick: "' .. nick ..'"');
+            end
+            return 1;
+        end
+
+This event cannot be discarded.
+
+**Input parameters:** **1=** ip, **2=** nick
+
+VH_OnUserLogin
+------------------
+This method is called when the user ends the login protocol and he get the MOTD. It returns the <code>nick</code> and his <code>IP</code>.  For example:
+
+        function VH_OnUserLogin (nick, ip)
+              VH:SendToOpChat('LOGGER: ' .. nick ..' has just entered in the hub');
+              return 1;
+        end
+
+This event cannot be discarded.
+
+**Input parameters:** **1=** nick, **2=** ip
+
+VH_OnUserLogout
+-------------------------
+This method is called when a user logout with <code>nick</code> and <code>ip</code> is completed. This event cannot be discarded.
+
+**Input parameters:** **1=** nick, **2**= ip
+
+
+> **Note** that in LUA functions you must put return 1 on the end of the function otherwise the hub will discard the action. 
+
+> The input parameters are always strings and they never contains end-pipe
+
+> You can also use **_PLUGINVERSION** or **_HUBVERSION** global variable which will give the plugin and VerliHub version respectively 

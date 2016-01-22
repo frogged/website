@@ -1,0 +1,45 @@
+~NOTOC~
+VH:SendToUser
+-----------------------
+Sends MyINFO _data_ (i.e. $HubIsFull) to a user with given <code>nickname</code>. For example:
+
+        VH:SendToUser("$ForceMove redirectarray:no-ip.org:3333|", 'Mario')
+        VH:SendToUser("<HubSecurity> Your nickprefix is NOT correct, the allowed prefixs is: " .. prefix .. "|", 'Mario')
+
+Remember to include the end pipe "|".
+
+**Input parameters:** **1=** data, **2=** nick
+
+**Old method:** VH:SendDataToUser
+
+VH:SendPMToAll
+-----------------------
+This method sends a boadcast <code>message</code> to all users which class is between <code>min_class</code> and <code>max_class</code> (including them) with nickname <code>as_nick</code>. End-pipe after the data is needed. For example:
+
+        VH:SendPMToAll("<"..BotName.."> This is an example message|", 'OpChat', 3, 10)
+
+**Input parameters:** **1=** message, **2=** as_nick, **3=** min_class, **4=** max_class
+
+VH:SendToClass
+-----------------------
+This methods will sends a MyINFO <code>data</code> to a users which class is between <code>min_class</code> and <code>max_class</code> (including them). End-pipe after the data is needed.  For example:
+
+        VH:SendToClass ("$OpList "..list.."|", 0, 10)
+        VH:SendToClass ("<Mario>"..string.."|", 5, 10)
+        VH:SendToClass ("$HubName This is my hub- And this is the topic".."|", 0, 10)
+
+**Input parameters:** **1=** data, **2=** min_class, **3=** max_class
+
+**Old method:** VH:SendDataToAll
+
+VH:ReportUser
+-----------------------
+Report a user with the given <code>nickname</code> with given <code>message</code> to the OP Chat
+
+**Input parameters:** **1=** nick, **2=** message
+
+VH:SendToOpChat
+-----------------------
+Send the given <code>message</code> in the OPChat of the hub.
+
+**Input parameters:** **1=** message 

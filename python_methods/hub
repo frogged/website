@@ -1,0 +1,68 @@
+~NOTOC~
+ParseCommand
+------------------
+This method parses any hub or script <code>command</code> as it is written by specified user with <code>nick</code>. <code>pm</code> specify if  <code>command</code> has been sent in PM or MC.
+
+         import vh
+         success = vh.ParseCommand(nick, command, pm)
+
+The method returns a bool value.
+
+Input parameters : **1=** nick, **2=** command, **3=** pm
+
+SetConfig
+------------------
+Sets the config <code>variable</code> to the given <code>value</code> for the specified <code>configuration type</code>. Possible values for <code>config type</code> can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of plugin). The method returns a bool value. For example:
+
+        import vh
+        result = vh.SetConfig("config","max_chat_msg","0")
+        result = vh.SetConfig("pi_floodprot", "max_conn_per_ip", "2")
+
+The first example will mute the main chat of the hub and the second one will change the max_conn_per_ip to two. 
+
+**Input parameters**: **1=** config type, **2=** variable, **3=** value
+
+GetConfig
+------------------
+This method returns the value of a given <code>variable</code> for the specified <code>configuration type</code>. Possible values for <code>config type</code> can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of plugin). For example:
+
+        import vh
+        botname = vh.GetConfig("config","hub_security")
+        maxconn = vh.GetConfig("pi_floodprot","max_conn_per_ip")
+
+where botname will be the hub-security name in the first example. The method returns none if config variable does not exist.
+
+**Input parameters:** **1=** config type, **2=** variable
+
+GetUsersCount
+------------------
+It returns the number of all online users. Bots and registered bots will not be included in this list.
+
+GetNickList
+------------------
+This method returns the nicklist which contains all users in the hub. For example:
+
+        import vh
+        nicklist = vh.GetNickList()
+
+will store in nicklist:
+
+        $NickList user1$$user2$$user3$$usern$$
+
+It will contain also the hub security and OPChat bots. It returns none on fail.
+
+GetOPList
+------------------
+It returns the complete list of OPs including hub security and OPChat bots:
+
+         $OpList [SU]root$$Mario$$VerliHub$$OpChat$$
+
+GetTotalShareSize
+------------------
+It returns the total share size in byte or none on fail.
+
+Topic
+------------------
+It returns the topic of the hub.
+
+**Input parameters:** **1=** topic

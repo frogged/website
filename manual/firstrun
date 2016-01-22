@@ -1,0 +1,80 @@
+Graphical installation with vh_gui
+==================
+
+In order to start the hub you must first run a configuration script called _vh\_gui_. In order to execute it you must have _dialog_ utility installed ([http://invisible-island.net/dialog/dialog.html](http://invisible-island.net/dialog/dialog.html "Dialog")).
+If the previous steps of this manual has been completed successfully then you should be able to run the following script:
+
+    vh_gui --install
+
+You will see the following welcome message.
+
+![image](1.png "Verlihub installer")
+
+Press Enter button on your keyword to proceed in the next step:
+
+![image](2.png "Verlihub installer")
+
+Now you have to provide some information to create database for VerliHub: database name, nickname, password and finally the hostname for MySQL server (it is _localhost_ if you are running MySQL from the same server of the hub). You can move up/down with keyword arrows to select the different fields. Press enter to confirm the information and to go on in the next step.
+
+
+Setup will now verify if account and database already exist on MySQL server, otherwise they will be created. The installation process will ask you to provide information for administration account.
+
+![image](3.png "Verlihub installer")
+
+Now press OK and confirm the data as shown in the above screenshot. If all data are correct, the next step is to specify the VerliHub configuration folder which will contain a configuration file and other files needed to run the hub. This is shown in the following screenshot:
+
+![image](4.png "Verlihub installer")
+
+The installation process provides you some locations for VerliHub configuration folder. You can choose one or providing another by selecting the option _Other_ . Remember that you need **write permission** to create files in that folder, otherwise setup will tell you to choose another path.
+You can also use an existing config folder and setup will made a backup of any data stored into it (dbconfig, trigger, plugins).
+The setup in the following step will create database tables and all needed files as shown in the following screenshot:
+
+![image](5.png "Verlihub installer")
+
+If all actions complete correctly, the installation process will notice it with the following window:
+
+![image](6.png "Verlihub installer")
+
+The final step is to setup a master account (user with class 10) to access the hub and an hostname and a port where you want to run the hub:
+
+![image](7.png "Account setup")
+
+Confirm the information you provided and just wait some seconds while script complete the setup.
+
+![image](8.png "Verlihub installer")
+
+Installation is now **completed**!
+
+Command line installation (vh)
+==================
+If you want to install VerliHub from command line or you have not _dialog_ utility installed on you system, you can follow these steps.
+To start installation run this command from shell:
+
+    vh --install
+
+This script will perform same actions of vh_gui but from command line.  Now you have to type information to create database for VerliHub: database name, nickname, password and finally the hostname for MySQL server (it is _localhost_ if you are running MySQL from the same server of the hub). Press enter to confirm each information you provide. Then type _y_ to confirm again the information and to go on in the next step.
+
+![image](cli_1.png "Setup MySQL account")
+
+Setup will now verify if account and database already exist on MySQL server or otherwise they will be created. If they do not exist the installation process will ask you to provide information for administration account.
+
+![image](cli_2.png "DB creation")
+
+
+Now type _y_ to confirm the data as shown in the above screenshot. If all data are correct, the next step is to specify the VerliHub configuration folder which contains a configuration files and other files to run the hub. This is shown in the following screenshot:
+
+![image](cli_3.png "Folder creation")
+
+The installation process provides you some locations for VerliHub configuration folder. In order to choose one, type the number associated with configuration folder as shown in the above screenshot. You can choose a folder guessed by the installer or providing another path by choosing the option _Other, choose path where to put config file_.
+Remember that you need **write permission** to create files in that folder, otherwise setup will tell you to choose another path.
+You can also use an existing config folder and setup will made a backup of any data stored into it (dbconfig, trigger, plugins).
+Type _y_ to confirm your choice and in the following step the setup will create database tables and all needed files.
+
+
+The final step is to setup a master account (user with class 10) to access the hub and an hostname and a port where you want to run the hub:
+
+![image](cli_4.png "Finishing installation")
+
+Again type _y_ to confirm the information you provided and just wait some seconds while script complete the setup.
+
+Installation is now **completed**!

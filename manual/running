@@ -1,0 +1,97 @@
+What port should verlihub run on?
+=================================
+
+The installer script will ask you for a port to use. This section is here only to explain what port you should use on Linux and how to change it if you made a mistake.
+When VerliHub is installed, it uses **4111 port** by default. This allows VerliHub to run as a **non-root user**, which can be desirable for **security reasons**. Remember that non-root user cannot uses ports below 1024.
+If you want to use a port below 1024, for example port 411, you can use a firewall behind VerliHub to route incoming requests from port 411 to the Verlihub machine listening on port 4111. However, DC clients will always use **411 port** if a port is not specified with the hub address. When specifying a hub address with a port, the format is _dchub://<hub address>:<port>_.
+
+Verlihub should be ready now but if you want to change the port, start VerliHub:
+
+    /usr/local/bin/verlihub
+
+Then issue the following command from inside the hub to change the port:
+
+    !set listen_port <port>
+
+Restart VerliHub to use the new port with the _!restart_ command.
+
+Running Verlihub
+================
+Now that the hub has been set up, you need to decide how to run Verlihub. You can choose to run it in verbose mode or as daemon.
+
+Running as a daemon
+------------------
+This is the most used way to run VerliHub and it should suite your needs.
+When Verlihub is configured to run as a daemon, you do not need to login and then start the hub manually. In fact VerliHub comes with a script to launch it as a daemon called vh_daemon (but do not use it).
+The syntax to use the command is:
+
+    vh <option> [<verlihub config folder>]
+
+where VerliHub config folder can be omitted. If folder is omitted then the script will automatically try to guess it; the following folders will be searched in this order:
+
+- value of VERLIHUB_CFG enviroment variable
+- /etc/verlihub
+- PREFIX/etc/verlihub where PREFIX is the path where you installed VerliHub
+- ./.verlihub
+- ~/.verlihub (~ means your home directory)
+
+If no directory will be found, the script will return an error.
+
+To start the hub use:
+
+    vh --start
+
+To stop it use:
+
+    vh --stop
+
+If you want to run a hub specifying a particular configuration folder use:
+
+    vh --start /path/to/config/dir
+
+Please refer to [[vh script chapter|utility.vh]] for more information about vh script.
+
+You can also start or stop the hub by using the graphical interface script called vh_gui For more information how to use it, please read [[vh_gui|vh_gui]]  in "Utility script" section in this reference manual.
+
+Running more hubs
+------------------
+If you want to run more than one hubs at once, VerliHub from version 0.9.9 comes with a new helper script called μ-Verlihub (multi-Verlihub) and it is available in vh_multihub CLI script.
+This script let you store a list of hubs you want to manage. If you want to start an hub use:
+
+    vh_multihub --run [ID]
+
+where _[ID]_ it is the identifier of the hub in the list.
+
+For more information about using this script, please refer to [[vh_multihub|utility.vh_multihub]] page under Utility script section of this guide.
+
+Using Gentoo daemon
+------------------
+If you are a Gentoo user and you have installed VerliHub from overlay, we provides config and init scripts (respectively located in /etc/conf.d/ and /etc/init.d) to run hub relying on Gentoo init system. So you can easily start, stop and restart VerliHub and also start it when the system boots
+
+First you need to edit _/etc/conf.d/verlihub_ that contains base information to run the hub. Make sure to set the following variables in the file:
+
+- CONFIGDIR: the path to dbconfig file
+- VERLIBIN: the location of the verlihub binary (usually in Gentoo /usr/local/bin/verlihub)
+- PIDFILE: the location of process ID file (do not edit this value)
+-  PROCESS_OWNER: the user that should run VerliHub (this user must be registered on your system)
+
+Then to start VerliHub use:
+
+    /etc/init.d/verlihub start
+
+To stop the hub type:
+
+    /etc/init.d/verlihub stop
+
+As said before, you can also start the hub when the system boots by adding verlihub init script to default runlevel. For example add the by doing so, you do not need to start VerliHub when you restart the server; to add VerliHub to default runlevel type as root:
+
+    rc-update add verlihub default
+
+Running in verbose mode
+----------------
+If you want to see the output of what VerliHub does when it is running, you can choose this mode.
+Remember that you need to start VerliHub manually each time you close your console. To start it use:
+
+    verlihub
+
+If you want to stop it, all you need to do is press _CTRL+C_ or if you are logged in as the Master user type !quit in the chat window.

@@ -1,0 +1,16 @@
+~NOTOC~
+This guide will help you to update GeoIP table automatically. Maxmind's GeoIP database is usually updated at the begining of each month. With crontab you can schedule automatic updates periodically using _vh_ script.
+
+Open crontab file with your favorite editor using:
+
+    crontab -e
+
+Now append at the end of the file this line:
+
+    0 0 1 * * /usr/local/vh --geoip >/dev/null
+
+or
+
+    @monthly /usr/local/vh --geoip >/dev/null
+
+Change path to script based on you installation folder. Now crontab will update table every month. To disable it just remove or comment the added line.

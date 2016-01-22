@@ -1,0 +1,40 @@
+VerliHub can restricts maximum number of slots, hub/slot ratio and so on based on user  connection (this is made checking client tag). The commands are available commands:
+
+!lstconntype
+: Shows the current connection type and their restrictions
+
+!addconntype &lt;connection_type&gt; &lt;other_parameters&gt;
+: Add the &lt;connection_type&gt; with their restrictions. See the explanation of the parameters below of this table
+
+!modconntype &lt;connection_type&gt; &lt;other_parameters&gt;
+: Update the &lt;connection_type&gt; with their restrictions. See the explanation of the parameters  below of this table
+
+!delconntype &lt;connection_type&gt;
+: Remove specified &lt;connection_type&gt;
+
+Here there is a explanation of command parameters:
+
+- **-S <tag_max_slots>**: maximum slots user can use
+- **-s <tag_min_slots>**: minimum slots user can use
+- **-l <tag_min_limit>**: minimum upload limit for user. If user upload rate is less than this value, he will not allowed in the hub. This value is in KB/sec
+- **-ls <tag_min_ls_ratio>**: minimal value for upload limit per slot. If user upload rate per slot is less than this value he will not allowed in hub
+
+> A set of these tags have been pre-installed for you to use. Use  !lstconntype to show them and **REMEMBER** that //default// tag is used when a matching connection type is not found in the list!
+
+> If you do not want to use the limiting, set the values to of parameter to **-1**
+
+For example you can specify the minimum slots to 1 and the maximum to 50 based on connections:
+
+    !modconntype default -s 1 -S 50
+    !modconntype 28Kbps -s 1 -S 50
+    !modconntype 33Kbps -s 1 -S 50
+    !modconntype 56Kbps -s 1 -S 50
+    !modconntype Modem -s 1 -S 50
+    !modconntype ISDN -s 1 -S 50
+    !modconntype Cable -s 1 -S 50
+    !modconntype DSL -s 1 -S 50
+    !modconntype Satellite -s 1 -S 50
+    !modconntype Microwave -s 1 -S 50
+    !modconntype Wireless -s 1 -S 50
+    !modconntype LAN(T1) -s 1 -S 50
+    !modconntype LAN(T3) -s 1 -S 50

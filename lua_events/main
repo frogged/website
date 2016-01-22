@@ -1,0 +1,60 @@
+~NOTOC~
+Main    
+-------
+This is called when the script is loaded. For example:
+
+        function Main()
+             VH:SendToOpChat('Hey a new LUA script has just been loaded');
+             return 1;
+        end
+
+or to register a new BOT in the user's list:
+
+        function Main()
+            VH:AddRobot('Crazy BOT', 10, 'I am a BOT', "Bot", 'nospam@hub.com', "0")
+        end
+
+> The method returns current script name as first argument
+
+Unload
+---------
+This is called before the script is unloaded. For example:
+
+        function Unload()
+             VH:SendToOpChat('Hey a LUA script has just been unloaded');
+             return 1;
+        end
+
+or to remove a BOT previously added with <code>VH:AddRobot</code>:
+
+        function UnLoad()
+            VH:DelRobot('Crazy BOT')
+        end
+
+VH_OnTimer
+-----------------
+Called every seconds as the time specified in the <code>timer_serv_period</code> variable. For example to print the date in OPChat:
+
+        time = os.time ()
+        function VH_OnTimer()
+             if(os.difftime (os.time (), time+10) <= 10) then
+                  VH:SendToOpChat('Harry up!');
+             end
+             return 1;
+        end
+
+ It will print the given string in OP Chat twenty times.
+
+VH_OnScriptCommand
+------------------------------
+VH_OnScriptCommand(command,data,plugin,script) 
+
+VH_ScriptCommand
+---------------------------
+(command,data) function for script communication
+
+> **Note** that in LUA functions you must put return 1 on the end of the function otherwise the hub will discard the action. 
+
+> The input parameters are always strings and they never contains end-pipe
+
+> You can also use **_PLUGINVERSION** or **_HUBVERSION** global variable which will give the plugin and VerliHub version respectively 

@@ -1,0 +1,64 @@
+~NOTOC~
+
+OnNewReg
+-----------
+This method is called when a new user is registered. It returns the <code>op</code> who made the registration, the registered <code>nick</code> with given <code>class</code>.  For example:
+
+        import vh
+        def OnNewReg (op, nick, class):
+            if nick == 'Mario':
+                 vh.SendPMToAll('Mario has just registered "' + nick + '" with class ' + class, vh.opchatname, 3, 10);
+            return 1;
+
+**Input parameters:** **1=** op, **2=** nick, **3=** class  
+
+
+OnNewConn
+------------------
+This method is called when there is a new incoming connection.. It returns the user's <code>ip</code>.  For example:
+
+        import vh
+        def OnNewConn (ip):
+            if ip == '127.0.0.1':
+                 vh.SendPMToAll('A new connection has just started with local IP: ' + ip, vh.opchatname, 3, 10);
+            return 1;
+
+**Input parameters:** **1=** ip
+
+OnCloseConn
+------------------
+This method is called when a new user with <code>ip</code> starts to log out.  For example:
+
+        import vh
+        def OnCloseConn (ip):
+            if ip == '127.0.0.1':
+                 vh.SendPMToAll('A new user has just started to log out with a local IP: ' + ip, vh.opchatname, 3, 10);
+            return 1;
+
+This event cannot be discarded.
+
+**Input parameters:** **1=** ip
+
+OnUserLogin
+------------------
+This method is called when the user ends the login protocol and he get the MOTD. It returns the <code>nick</code>.  For example:
+
+        import vh
+        def OnUserLogin (nick):
+              vh.SendPMToAll('LOGGER: ' + nick +' has just entered in the hub', vh.opchatname, 3, 10);
+              return 1;
+
+This event cannot be discarded.
+
+**Input parameters:** **1=** nick
+
+
+OnUserLogout
+-------------------------
+This method is called when a user logout with <code>nick</code> is completed. This event cannot be discarded.
+
+**Input parameters:** **1=** nick
+
+> **Note** that in Python functions if no return value is specified, or you don't use the return keyword, Python automatically returns the value None. Return 1 to perform the hub action.
+
+> The input parameters are always strings and they never contains end-pipe

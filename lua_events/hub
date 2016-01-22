@@ -1,0 +1,68 @@
+~NOTOC~
+VH_OnUserCommand
+------------------------------
+This method is called when a user execute a user command, that starts with the value set in <code>cmd_start_user</code> variable. It returns the <code>nick</code> and <code>command</code> that user has wrote. Return false to ignore the command, otherwise return true. For example:
+
+        function VH_OnUserCommand (nick, data)
+            if nick == 'Mario' and data == '+help' then
+                 VH:SendToOpChat('Mario has just executed +help command');
+            end
+            return 1;
+        end
+
+**Input parameters:** **1=** nick, **2=**command
+
+VH_OnOperatorCommand
+-----------------------------------
+This method is called when a operator execute a OP command, that starts with the value set in <code>cmd_start_op</code> variable. It returns the <code>nick</code> and <code>command</code> that user has wrote. Return false to ignore the command, otherwise return true.
+
+        function VH_OnOperatorCommand (nick, data)
+            if nick == 'Mario' and data == '!gc' then
+                 VH:SendToOpChat('Mario has just run !gc command');
+            end
+            return 1;
+        end
+
+
+**Input parameters:** **1=** nick, **2=**command
+
+VH_OnHubCommand
+------------------
+This method is called when a new operator or user command is executed. It accepts the <code>nick</code> that runs the command, the written <code>command</code> and it reports also if it is a operator command (<code>is_op_command</code>) and if command has been executed in a Private Message (<code>in_pm</code>). For example:
+
+        function VH_OnHubCommand (nick, command, is_op, in_pm)
+            if nick == 'Mario' and data == '!gc' and in_pm then
+                 VH:SendToOpChat('Mario has just typed !gc command in pm');
+            end
+            return 1;
+        end
+
+Return false to ignore the command, otherwise return true.
+
+**Input parameters:** **1=** nick, **2=**command, **3=** is_op_command, **4=**in_pm,
+
+VH_OnHubName
+------------
+This method is called every time $HubName is changed i.e. <code>hub_name</code> value or topic are modified by user with <code>nick</code>. For example:
+
+        function VH_OnHubName (nick, hub_name)
+            VH:SendToOpChat('User' .. nick .. ' has just changed the HubName to ' .. hub_name);
+            return 1;
+        end
+
+ Assume that <code>hub_name</code> is "VerliHub" and there is no set topic. If a Admin type:
+
+        !topic HOW ARE YOU?
+
+ The LUA script will return:
+
+        User [SU]root has just changed the HubName to $HubName VerliHub - HOW ARE YOU?
+
+**Input parameters:** **1=** nick, **2=**hub_name
+
+
+> **Note** that in LUA functions you must put return 1 on the end of the function otherwise the hub will discard the action. 
+
+> The input parameters are always strings and they never contains end-pipe
+
+> You can also use **_PLUGINVERSION** or **_HUBVERSION** global variable which will give the plugin and VerliHub version respectively 

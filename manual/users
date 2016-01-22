@@ -1,0 +1,320 @@
+This section of the manual deals specifically with commands and instructions for user management.
+
+User classes
+==================
+VerliHub use _classes_ to distinguish users based on permissions. Higher the class is more privileges the user has. Below is a summary of the class types:
+
+| File Class | Description|
+|-----------|------------|------------|
+|-1|Hublist pingers|
+|0|Regular users|
+|1|Registered users|
+|2|VIP users|
+|3|Operator user|
+|4|Cheef user|
+|5|Admin user|
+|10|Master user|
+
+User commands
+==================
+
+Main commands
+------------------
+These are the commands used to add, delete or manage users:
+
+!reglist [class=0]
+: List all users with the given class. Default is 0.
+
+!regnewuser (or !rn) &lt;nickname&gt; &lt;class&gt; [password]
+: Register a new user with given class. You can also specify user's password.
+
+!regpass &lt;nickname&gt; &lt;password&gt;
+: Set user password. If you leave &lt;password&gt; option blank, password will be reset and user will be able to change it by himself (he has to use command **+passwd &lt;password&gt;**)
+
+!regdelete &lt;nickname&gt;
+: Removing a registered user based on given nickname
+
+!regdisable &lt;nickname&gt;
+: Temporarily disable a registered nickname without permanently removing it from the database
+
+!regenable &lt;nickname&gt;
+: Enable a temporarily disabled user with _!regdisable_ command
+
+!regclass &lt;nickname&gt; &lt;new_class&gt;
+: Change the class of a user based on given nickname
+
+!class &lt;nickname&gt; &lt;new_class&gt;
+: Temporarily change the class of a user based on given nickname. Make the same action of _!regclass_ command  but action will disappear at hub restarting. Max class is Admin
+
+!reginfo &lt;nickname&gt;
+: See all information about a registered user
+
+!getinfo &lt;nickname&gt;
+: Return IP address and hostname (if _dns_lookup_ is set to 1)
+
+!gethost &lt;nickname&gt;
+: Return hostname (if dns_lookup is set to 1)
+
+!whoip &lt;IP address&gt;
+: Search users with given IP address
+
+!whorange &lt;lower IP address&gt;-&lt;upper IP address&gt;
+: Shows nicknames in the given range of IP addresses
+
+!whorange &lt;ip address&gt;/&lt;left mask bits&gt;
+: Shows nicknames in the given subnet
+
+Actions on user
+------------------
+You can also perform some actions for the user:
+
+!drop &lt;nickname&gt;
+: Disconnect user without kicking him
+
+!regprotect &lt;nickname&gt; &lt;protect_from_class&gt;
+: Protect a registered user from the class minor or equal of the given value (user can't be kicked or banned)
+
+!regset &lt;nickname&gt; hide_share &lt;0/1&gt;
+: Hide share of the given nickname. Use 1 to hide and 0 to show. Only Admin are allowed to perform this action
+
+!regset &lt;nickname&gt; hide_keys &lt;0/1&gt;
+: Hide key operator for the given nickname. Use 1 to hide and 0 to show. Only Admin are allowed to perform this action
+
+!regset  &lt;nickname&gt; note_op &lt;message&gt;
+: Add a note for the registered user in the database. Only Admin are allowed to perform this action
+
+!gag &lt;nickname&gt; [time]
+: Mute a user in main chat for 7 days. You can keep the user quiet for the time specified
+
+!ungag &lt;nickname&gt;
+: Un-mute a gagged  user
+
+!hideme &lt;class&gt;
+: Hides yourself from users below the specified class
+
+!nodl &lt;nickname&gt; [time]:
+: Prevent a user from download files for the time specified (default is 2 days)
+
+!unnodl &lt;nickname&gt;
+: Remove no-download restrictions
+
+!nochats &lt;nickname&gt; [time]:
+: Prevent a user from send public and private messages for the time specified (default is 2 days)
+
+!nopm &lt;nickname&gt; [time])
+: Prevent a user from send private messages for the time specified (default is 7 days)
+
+!unnochats &lt;nickname&gt;
+: Remove no-charts restriction
+
+!unnopm &lt;nickname&gt;
+: Remove no-PM restriction
+
+!nosearch &lt;nickname&gt; [time]
+: Prevent users from searching in the hub for 7 days. You can change the time using _time_ parameter
+
+!unnosearch &lt;nickname&gt;
+: Remove search restriction
+
+!kvip &lt;nickname&gt; [time] (or !maykick)
+: Let user to kick other users for the time specified (default is 7 days)
+
+!unkvip  &lt;nickname&gt; (or !unmaykick)
+: Remove kick privilege from the user
+
+!noshare &lt;nickname&gt; [time]
+: Hide user's share for the time specified (default is 7 days)
+
+!unnoshare &lt;nickname&gt;
+: Remove hide share privileges for the time specified (default is 7 days)
+
+!mayreg &lt;nickname&gt; [time]
+: Allow user to register other users for the time specified (default is 7 days)
+
+!unmayreg &lt;nickname&gt;
+: Remove registration privilege from the user
+
+!mayopchat &lt;nickname&gt; [time]
+: Allows user to enter in the OPChat for the time specified (default is 7 days)
+
+!unmayopchat &lt;nickname&gt;
+: Revoke privilege to enter in the OPChat
+
+> When you register a new user, he need to use the +passwd command to set a password otherwise he will be **kicked** from the hub if they don't change the password in 5 minutes or in the time interval set in the _timeout\_setpass_ config variable. Or you can use _!regpass_ command to set user's password.
+
+Permissions
+==================
+VerliHub allow you to change permissions for a user class, so users with class can or cannot perform some actions. These are available variables in the config:
+
+classdif_reg
+: This is the maximum class you can register that you get from the difference between your class and the the class of the user you want to register. Default is set to 2 so this means that if you class 3 you can only register user with class 1. If your are Admin (class 5) you can register classes 1, 2, 3 and so on.
+
+classdif_kick
+: This is the maximum class you can kick that you get from the difference between your class and the the class of the user you want to kick. Default is set to 0 so this means that if you class 3 you can kick user with class equal or lower than your.
+
+classdif_reg
+: This is the maximum class you can register that you get from the difference between your class and the the class of the user you want to register. Default is set to 2 so this means that if you class 3 you can only register user with class 1. If your are Admin (class 5) you can register classes 1, 2, 3 and so on.
+
+classdif_kick
+: This is the maximum class you can kick that you get from the difference between your class and the the class of the user you want to kick. Default is set to 0 so this means that if you class 3 you can kick user with class equal or lower than your.
+
+classdif_pm
+: This is the maximum class you can contact by PM that you get from the difference between your class and the the class of the user you want to register. Default is set to 10 so all users can be contacted by PM. See _classdif\_reg_ for more information
+
+classdif_download
+: This is the maximum class you can downloaded from that you get from the difference between your class and the the class of the user you want to register. Default is set to 10 so all users can be contacted by PM. See _classdif\_reg_ for more information. Very useful to block downloads.
+
+min_class_use_hub
+: This is the minimum class that can use hub to search and download
+
+min_class_use_hub_passive
+: The same of _min\_class\_use\_hub_ but for passive users only
+
+min_class_register
+: Minimum class that can register in the hub
+
+min_class_redir
+: Minimum class that can redirect a user
+
+min_class_bc
+: Minimum class that can send broadcasting messages
+
+min_class_bc_guests
+: Minimum class that can send broadcasting messages to guests only
+
+min_class_bc_regs
+: Minimum class that can send broadcasting messages to registered users (class 1)
+
+min_class_bc_vips
+: Minimum class that can send broadcasting messages to VIPs (class 2)
+
+plugin_mod_class
+: Minimum class that change plugin settings
+
+topic_mod_class
+: Minimum class that change hub topic
+
+trigger_mod_class
+: The minimum class that can issue trigger moderation commands
+
+Restrictions on nicknames
+===========
+You can gain the access to the hub only for users whose nick respects rules controlled by the following variables:
+
+max_nick
+: Maximum characters allowed for nickname
+
+min_nick
+: Minimum characters allowed for nickname. Default to 3
+
+nick_chars
+:  Allowed characters in the username
+
+nick_prefix
+: Force a connecting user to have one of prefixes before the nick, example: [A] [ABC] [AB] will tell all connecting users to set their nick as [A]nickname, [ABC]nickname or [AB]nickname
+
+nick_prefix_nocase
+: Allows case insensitive prefixes to be used
+
+nick_prefix_autoreg
+: Prefix that user should use and have to complete auto registration
+
+nick_prefix_cc
+: See nick_prefix but used when cc zones have been defined
+
+Auto-registration
+==================
+In VerliHub you can enable users auto-registration changing value of _autoreg\_class_ variable. You should specify which class should be used to register a new user with auto registration feature. For example if you want that auto register guest user with class 1 use:
+
+    !set autoreg_class 1
+
+or as VIP (class 2):
+
+    !set autoreg_class 2
+
+> If you use a class bigger than 3 VerliHub will block auto registration feature.
+
+User can register himself with **+regme** command followed by choosen password:
+
+    +regme 4aD#47dS
+
+VerliHub will check if user has the minimum amount of share checking _min\_share\_reg_ or _min\_share\_vip_ or _min\_share\_ops_ variables according to value set in _autoreg\_class_ variable. Hubosft will also check if provided password has at least number of characters set in _password\_min\_len_ variable.
+
+> You can also force user to use a prefix in the nickname setting a value to **nick\_prefix\_autoreg** variable.
+
+
+Edit users table directly
+==================
+VerliHub store all registered users in _reglist_ table and allows you to manipulate the registered users table directly, using:
+
+    !regset <nick> <variable> <value>
+
+Here are the variables list you can change:
+
+
+nick
+:  The user's nickname
+
+class
+:  The user class
+class_protect
+:  Specify if user should be protected by class equal or lower of the given value
+
+class_hidekick
+:  User can't see kicks from OPs with class equal or lower of the given value
+
+hide_kick
+:  Flag to indicate whether a user sees any kick messages
+
+hide_share
+:  Flag to indicate whether a user share should be shown or not
+
+reg_date
+:  Date the nickname was registered in unix timestamp
+
+reg_op
+:  The OP that registered the nickname
+
+pwd_change
+:  Flag to indicate if user needs to change his password
+
+pwd_crypt
+:  Type of encryption used on the password
+
+login_pwd
+:  The user's password
+
+login_last
+:  Last time user logged-in in UNIX timestamp format
+
+logout_last
+:  Last time user logged out in UNIX timestamp format
+
+login_cnt
+:  How many times user has logged into the hub
+
+login_ip
+:  IP address of user when they entered hub for the last time
+
+auth_ip
+: IP address that user must have when he logs in
+
+error_last
+:  Last error message user reported in UNIX timestamp format
+
+error_cnt
+:  Total number of errors user has had
+
+error_ip
+:  IP address of user when last error occured
+
+enabled
+:  Flag to indicate whether account is enabled or not
+
+email
+:  user's email address
+note_op
+:  A field you can use to leave yourself a note regarding this user
+
+note_usr
+:  Another note field
