@@ -1,10 +1,10 @@
 ~NOTOC~
 ParseCommand
 ------------------
-This method parses any hub or script <code>command</code> as if it were issued by a user with the provided <code>nick</code>. The <code>pm</code> parameter is used to specify whether the <code>command</code> was "written" in PM or MC.
+This method parses any hub or script `command` as if it were issued by a user with the provided `nick`. The `pm` parameter is used to specify whether the `command` was "written" in PM or MC.
 
-        import vh
-        success = vh.ParseCommand(nick, command, pm)
+    import vh
+    success = vh.ParseCommand(nick, command, pm)
 
 The method returns False if the specified user was not found. Otherwise it returns True, regardless of the command result.
 
@@ -15,11 +15,11 @@ The method returns False if the specified user was not found. Otherwise it retur
 
 SetConfig
 ------------------
-Sets the config <code>variable</code> to the given <code>value</code> for the specified <code>config_type</code>. Possible values for <code>config_type</code> can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of a plugin). The method returns True on success and False if the variable was not found. For example:
+Sets the config `variable` to the given `value` for the specified `config_type`. Possible values for `config_type` can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of a plugin). The method returns True on success and False if the variable was not found. For example:
 
-        import vh
-        result = vh.SetConfig("config", "max_chat_msg", "0")
-        result = vh.SetConfig("pi_floodprot", "max_conn_per_ip", "2")
+    import vh
+    result = vh.SetConfig("config", "max_chat_msg", "0")
+    result = vh.SetConfig("pi_floodprot", "max_conn_per_ip", "2")
 
 The first example will mute the main chat of the hub and the second one will change the max_conn_per_ip to two. 
 
@@ -30,13 +30,13 @@ The first example will mute the main chat of the hub and the second one will cha
 
 GetConfig
 ------------------
-This method returns a string with the value of a given <code>variable</code> for the specified <code>config_type</code>. Possible values for <code>config_type</code> can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of a plugin). For example:
+This method returns a string with the value of a given `variable` for the specified `config_type`. Possible values for `config_type` can be "config" for hub configuration or "pi_pluginname" (replace pluginame with the name of a plugin). For example:
 
-        import vh
-        desc = vh.GetConfig("config", "hub_desc")
-        maxconn = vh.GetConfig("pi_floodprot", "max_conn_per_ip")
+    import vh
+    desc = vh.GetConfig("config", "hub_desc")
+    maxconn = vh.GetConfig("pi_floodprot", "max_conn_per_ip")
 
-where `desc` in the first example will be the hub's description. The method returns None if the config variable does not exist.
+where `desc` in the first example will become the hub's description. The method returns None if the config variable does not exist.
 
 **Input parameters:**  
 **1=** config_type (str),  
@@ -50,13 +50,13 @@ GetNickList
 ------------------
 This method returns a list with the nicks of all users in the hub (including hub security and OPChat bots). In case of failure the None value is returned. For example:
 
-        import vh
-        nicklist = vh.GetNickList()
-        first_three = nicklist[:3]
+    import vh
+    nicklist = vh.GetNickList()
+    first_three = nicklist[:3]
 
-and first_three will become for example:
+Here `first_three` will become:
 
-        ["user1", "user2", "user3"]
+    ["user1", "user2", "user3"]
 
 If you want to get a string with the raw NickList, use GetRawNickList instead.
 
@@ -64,20 +64,18 @@ GetRawNickList
 ------------------
 This method returns the NickList string containing all users in the hub (including hub security and OPChat bots). In case of failure the None value is returned. For example:
 
-        import vh
-        nicklist = vh.GetRawNickList()
+    import vh
+    nicklist = vh.GetRawNickList()
 
-will store in nicklist a string similar to:
+will store in `nicklist` a string similar to:
 
-        "$NickList user1$$user2$$user3$$usern$$"
-
-
+    "$NickList user1$$user2$$user3$$usern$$"
 
 GetOpList
 ------------------
 It returns the complete list of nicks of OPs, including hub security and OPChat bots:
 
-        ["[SU]root", "Mario", "VerliHub", "OpChat"]
+    ["[SU]root", "Mario", "VerliHub", "OpChat"]
 
 This Method is called without arguments. If something fails, it will return None.
 
@@ -85,25 +83,25 @@ GetRawOpList
 ------------------
 It returns a string with the raw list of OPs, including hub security and OPChat bots:
 
-        "$OpList [SU]root$$Mario$$VerliHub$$OpChat$$"
+    "$OpList [SU]root$$Mario$$VerliHub$$OpChat$$"
 
 This Method is called without arguments. If something fails, it will return None.
 
 GetTotalShareSize
 ------------------
-It returns a string(!) with the total share size of the hub in bytes (or the value None if the call failed). If you want to do calculations, convert it to an integer, for example:
+It returns a string(!) with the total share size of the hub in bytes (or the value None if the call failed). If you want to do calculations, convert it to an integer; for example:
 
-        import vh
-        bytes = int(vh.GetTotalShareSize())
-        gigabytes = (bytes * 1.0) / 1024**3
+    import vh
+    bytes = int(vh.GetTotalShareSize())
+    gigabytes = (bytes * 1.0) / 1024**3
 
 Topic
 ------------------
 It returns a string with the topic of the hub or sets a new one (if it is called with an argument).
 
-        import vh
-        old_topic = vh.Topic()
-        new_topic = vh.Topic("Finally, it's the weekend!")
+    import vh
+    old_topic = vh.Topic()
+    new_topic = vh.Topic("Finally, it's the weekend!")
 
 **Input parameters:**  
 **1=** topic (str, optional parameter; the new topic to display).
